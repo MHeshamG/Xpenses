@@ -1,4 +1,4 @@
-package com.xwallet.room
+package com.xpenses.room
 
 import android.content.Context
 import androidx.room.Database

@@ -1,4 +1,4 @@
-package com.xwallet.room
+package com.xpenses.room
 
 
 import androidx.lifecycle.LiveData
@@ -22,5 +22,8 @@ interface PaymentDao {
 
     @Query("SELECT * FROM payments_table ORDER BY cost DESC")
     fun getAllPayments(): LiveData<List<LeafPayment>>
+
+    @Query("SELECT * FROM payments_table WHERE paymentId=:paymentId")
+    fun getPaymentById(paymentId:Long): LeafPayment
 
 }

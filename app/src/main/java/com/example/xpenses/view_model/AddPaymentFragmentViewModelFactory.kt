@@ -5,14 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.xpenses.room.PaymentDao
 
-class TodayPaymentsFragmentViewModelFactory(
-    private val dataSource: PaymentDao,
-    private val application: Application
-) : ViewModelProvider.Factory {
+class AddPaymentFragmentViewModelFactory(private val dataSource: PaymentDao, private val application: Application):ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(TodayPaymentsFragmentViewModel::class.java)) {
-            return TodayPaymentsFragmentViewModel(dataSource, application) as T
+        if (modelClass.isAssignableFrom(AddPaymentFragmentViewModel::class.java)) {
+            return AddPaymentFragmentViewModel(dataSource, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

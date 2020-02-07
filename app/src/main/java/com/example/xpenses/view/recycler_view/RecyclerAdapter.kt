@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.databinding.PaymentLayoutBinding
 import com.xwallet.business.LeafPayment
+import com.xwallet.business.PaymentType
 import kotlinx.android.synthetic.main.payment_layout.view.*
+import java.text.SimpleDateFormat
 
-class RecyclerAdapter :
+class RecyclerAdapter(val paymentItemClickListener:OnPaymentItemClickListener) :
     ListAdapter<LeafPayment, RecyclerAdapter.PaymentHolder>(PaymentDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): PaymentHolder {
@@ -19,19 +21,13 @@ class RecyclerAdapter :
 
     override fun onBindViewHolder(holder: PaymentHolder, position: Int) {
         val itemPayment = getItem(position)
-        holder.bindPayment(itemPayment)
+        holder.bindPayment(itemPayment,paymentItemClickListener)
     }
 
 
-    class PaymentHolder private constructor(val binding: PaymentLayoutBinding) : RecyclerView.ViewHolder(binding.root),
-        View.OnClickListener {
+    class PaymentHolder private constructor(val binding: PaymentLayoutBinding) : RecyclerView.ViewHolder(binding.root){
 
         private var leafPayment: LeafPayment? = null
-
-
-        init {
-            binding.root.setOnClickListener(this)
-        }
 
         companion object {
             fun createPaymentHolder(parent: ViewGroup): PaymentHolder {
@@ -41,17 +37,17 @@ class RecyclerAdapter :
             }
         }
 
-        override fun onClick(v: View) {
-            Log.d("RecyclerView", "CLICK!")
-        }
-
-        fun bindPayment(leafPayment: LeafPayment) {
+        fun bindPayment(leafPayment: LeafPayment, paymentItemClickListener:OnPaymentItemClickListener) {
             this.leafPayment = leafPayment
-            binding.paymentTypeText.text = leafPayment.type.toString()
+            binding.root.setOnClickListener {paymentItemClickListener.onPaymentItemClick(leafPayment.paymentId)};
+            binding.paymentTypeText.text = PaymentType.fromInt(leafPayment.type).toString()
             binding.paymentCost.text = leafPayment.cost.toString() + "$"
-            binding.paymentTime.text = leafPayment.dateTime.toString()
+            binding.paymentTime.text = SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(leafPayment.dateTime).toString()
         }
     }
 
+    interface OnPaymentItemClickListener{
+        fun onPaymentItemClick(paymentId:Long)
+    }
 
 }

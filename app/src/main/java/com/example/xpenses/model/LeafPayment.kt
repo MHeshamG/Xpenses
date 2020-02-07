@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "payments_table")
 data class LeafPayment(
     @PrimaryKey(autoGenerate = true)
-    var paymentId:Long = 0L,
+    var paymentId:Long=1L,
     @ColumnInfo(name = "cost")
     var cost:Double,
     @ColumnInfo(name = "type")
