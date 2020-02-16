@@ -1,4 +1,4 @@
-package com.xwallet.business
+package com.xpenses.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "payments_table")
 data class LeafPayment(
     @PrimaryKey(autoGenerate = true)
-    var paymentId:Long=1L,
+    var paymentId:Long = 0,
     @ColumnInfo(name = "cost")
     var cost:Double,
     @ColumnInfo(name = "type")

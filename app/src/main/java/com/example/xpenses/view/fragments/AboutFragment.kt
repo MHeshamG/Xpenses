@@ -1,4 +1,4 @@
-package com.example.xpenses.view
+package com.example.xpenses.view.fragments
 
 
 import android.os.Bundle

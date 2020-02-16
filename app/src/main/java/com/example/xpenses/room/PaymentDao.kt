@@ -3,7 +3,7 @@ package com.xpenses.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.xwallet.business.LeafPayment
+import com.xpenses.model.LeafPayment
 
 @Dao
 interface PaymentDao {
@@ -24,6 +24,6 @@ interface PaymentDao {
     fun getAllPayments(): LiveData<List<LeafPayment>>
 
     @Query("SELECT * FROM payments_table WHERE paymentId=:paymentId")
-    fun getPaymentById(paymentId:Long): LeafPayment
+    fun getPaymentById(paymentId:Long): LiveData<LeafPayment>
 
 }

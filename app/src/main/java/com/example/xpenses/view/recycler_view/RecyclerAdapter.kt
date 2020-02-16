@@ -4,10 +4,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.xpenses.R
 import com.example.xpenses.databinding.PaymentLayoutBinding
-import com.xwallet.business.LeafPayment
+import com.example.xpenses.model.PaymentTypeIconResourceList
+import com.example.xpenses.model.PaymentTypeIconResourceMap
+import com.xpenses.model.LeafPayment
 import com.xwallet.business.PaymentType
 import kotlinx.android.synthetic.main.payment_layout.view.*
 import java.text.SimpleDateFormat
@@ -43,6 +48,7 @@ class RecyclerAdapter(val paymentItemClickListener:OnPaymentItemClickListener) :
             binding.paymentTypeText.text = PaymentType.fromInt(leafPayment.type).toString()
             binding.paymentCost.text = leafPayment.cost.toString() + "$"
             binding.paymentTime.text = SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(leafPayment.dateTime).toString()
+            binding.paymentTypeIcon.setBackgroundResource(PaymentTypeIconResourceMap[PaymentType.fromInt(leafPayment.type)]!!)
         }
     }
 

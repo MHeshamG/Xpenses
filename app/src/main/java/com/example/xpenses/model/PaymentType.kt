@@ -7,8 +7,11 @@ enum class PaymentType(
     ENTERTAINMENT(1),
     FUEL(2),
     TRANSPORTATION(3),
-    HOME_RENT(4),
-    OTHER(5);
+    MAINTANINCE(4),
+    SHOPPING(5),
+    SCHOOL(6),
+    CLOTHES(7),
+    TRAVEL(8);
 
     companion object {
         private val map = values().associateBy { paymentType: PaymentType -> paymentType.typeInt }

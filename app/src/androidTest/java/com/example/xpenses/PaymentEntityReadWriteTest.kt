@@ -60,7 +60,7 @@ class PaymentEntityReadWriteTest {
         val payment=LeafPayment(cost = 102.0,description = "description",type = PaymentType.ENTERTAINMENT.typeInt)
         paymentDao.insert(payment)
         val paymentReturned = paymentDao.getPaymentById(1)
-        assertThat(payment, equalTo(paymentReturned))
+        assertThat(paymentReturned.getOrAwaitValue(), equalTo(payment))
     }
 
     @Test
@@ -70,12 +70,12 @@ class PaymentEntityReadWriteTest {
         paymentDao.insert(payment)
         paymentDao.delete(payment)
         val paymentReturned = paymentDao.getPaymentById(1)
-        assertNull(paymentReturned)
+        assertNull(paymentReturned.getOrAwaitValue())
     }
 
     @Test
     @Throws(Exception::class)
-    fun writePaymentAndDelete() {
+    fun writePaymentAndDeleteAll() {
         val payment=LeafPayment(cost = 102.0,description = "description",type = PaymentType.ENTERTAINMENT.typeInt)
         paymentDao.insert(payment)
         paymentDao.deleteAllPayments()

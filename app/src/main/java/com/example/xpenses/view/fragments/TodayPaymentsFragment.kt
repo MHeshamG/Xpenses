@@ -1,4 +1,4 @@
-package com.example.xpenses.view
+package com.example.xpenses.view.fragments
 
 
 import android.os.Bundle
@@ -43,7 +43,7 @@ class TodayPaymentsFragment : Fragment() {
             override fun onPaymentItemClick(paymentId: Long) {
                 findNavController()
                     .navigate(
-                        TodayPaymentsFragmentDirections.actionTodayPaymentsFragmentToAddEditPaymentFragment(
+                        TodayPaymentsFragmentDirections.actionTodayPaymentsFragmentToEditPaymentFragment(
                             paymentId
                         )
                     )
