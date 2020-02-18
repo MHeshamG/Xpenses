@@ -2,61 +2,71 @@ package com.example.xpenses.view.fragments
 
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-
 import com.example.xpenses.R
-import com.example.xpenses.databinding.FragmentEditPaymentBinding
+import com.example.xpenses.databinding.FragmentAddEditPaymentBinding
+import com.example.xpenses.model.PaymentTypeIconResourceMap
 import com.example.xpenses.view_model.EditPaymentFragmentViewModel
 import com.example.xpenses.view_model.EditPaymentFragmentViewModelFactory
 import com.xpenses.model.LeafPayment
-import com.xpenses.room.PaymentsDatabase
+import com.xwallet.business.PaymentType
 
 /**
  * A simple [Fragment] subclass.
  */
-class EditPaymentFragment : Fragment() {
+class EditPaymentFragment : AddEditBaseFragment() {
+
+    lateinit var viewModel: EditPaymentFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentEditPaymentBinding>(
+        val binding = DataBindingUtil.inflate<FragmentAddEditPaymentBinding>(
             inflater,
-            R.layout.fragment_edit_payment,
+            R.layout.fragment_add_edit_payment,
             container,
             false
         )
-
-        val application = requireNotNull(this.activity).application
-        val dataSource = PaymentsDatabase.getDatabase(application).paymentDao
+        setHasOptionsMenu(true)
         val args = EditPaymentFragmentArgs.fromBundle(arguments!!)
-        val viewModelFactory = EditPaymentFragmentViewModelFactory(dataSource, args.paymentId, application)
-        val viewModel = ViewModelProviders.of(this, viewModelFactory)
+        val viewModelFactory =
+            EditPaymentFragmentViewModelFactory(dataSource, args.paymentId, application)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(EditPaymentFragmentViewModel::class.java)
-        viewModel.thisPayment.observe(this, Observer {it?.let { loadArgsToView(binding, it as LeafPayment) } })
+        viewModel.thisPayment.observe(this, Observer { it?.let { loadArgsToView(binding, it) } })
         binding.saveButton.setOnClickListener {
             updatePayment(binding, viewModel, viewModel.thisPayment.value!!)
-        }
-        binding.deleteButton.setOnClickListener {
-            viewModel.onDeletePayment(viewModel.thisPayment.value!!)
         }
         return binding.root
     }
 
-    private fun loadArgsToView(binding: FragmentEditPaymentBinding, leafPayment: LeafPayment) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.edit_payment_fragment_menu, menu);
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.delete_menu_item -> viewModel.onDeletePayment()
+        }; return true
+    }
+
+    private fun loadArgsToView(binding: FragmentAddEditPaymentBinding, leafPayment: LeafPayment) {
+        binding.iconTypeImageView.setImageResource(PaymentTypeIconResourceMap.get(PaymentType.fromInt(leafPayment.type))!!)
+        binding.paymentTypeText.text = PaymentType.fromInt(leafPayment.type)?.name
         binding.paymentCost.editText?.setText(leafPayment.cost.toString())
         binding.paymentDescription.editText?.setText(leafPayment.description.toString())
     }
 
     private fun updatePayment(
-        binding: FragmentEditPaymentBinding,
+        binding: FragmentAddEditPaymentBinding,
         viewModel: EditPaymentFragmentViewModel, leafPayment: LeafPayment
     ) {
         var cost = 0.0

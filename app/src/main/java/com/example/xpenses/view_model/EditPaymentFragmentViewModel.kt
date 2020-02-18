@@ -26,9 +26,9 @@ class EditPaymentFragmentViewModel(val paymentDao: PaymentDao, val paymentId:Lon
         }
     }
 
-    fun onDeletePayment(leafPayment: LeafPayment) {
+    fun onDeletePayment() {
         uiScope.launch {
-            deletePayment(leafPayment)
+            deletePayment(thisPayment.value!!)
         }
     }
 

@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.xpenses.R
-import com.example.xpenses.databinding.FragmentAddPaymentBinding
+import com.example.xpenses.databinding.FragmentAddEditPaymentBinding
 import com.example.xpenses.view.dialogs.PaymentTypeIconsDialog
 import com.example.xpenses.view.recycler_view.PaymentTypeIconsRecyclerAdapter
 import com.example.xpenses.view_model.AddPaymentFragmentViewModel
@@ -22,43 +22,19 @@ import com.xwallet.business.PaymentType
 /**
  * A simple [Fragment] subclass.
  */
-class AddPaymentFragment : Fragment() {
-
-    var choosenPaymentType:PaymentType = PaymentType.FOOD;
+class AddPaymentFragment : AddEditBaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val binding = DataBindingUtil.inflate<FragmentAddPaymentBinding>(
-            inflater,
-            R.layout.fragment_add_payment,
-            container,
-            false
-        )
-        val application = requireNotNull(this.activity).application
-        val dataSource = PaymentsDatabase.getDatabase(application).paymentDao
+        super.onCreateView(inflater, container, savedInstanceState)
         val viewModelFactory = AddPaymentFragmentViewModelFactory(dataSource, application)
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(AddPaymentFragmentViewModel::class.java)
         binding.saveButton.setOnClickListener {
             savePayment(binding, viewModel)
             navigateToTodayPaymentsFragment()
-        }
-        binding.chooseTypeButton.setOnClickListener {
-            val choosePaymentTypeDialog =
-                PaymentTypeIconsDialog(this.requireActivity())
-            choosePaymentTypeDialog.adapter = PaymentTypeIconsRecyclerAdapter(object :
-                PaymentTypeIconsRecyclerAdapter.OnPaymentTypeItemClickListener {
-                override fun onPaymentItemClick(iconType: Pair<PaymentType, Int>) {
-                    choosePaymentTypeDialog.dismiss()
-                    choosenPaymentType = iconType.first
-                    binding.paymentTypeText.text = iconType.first.name
-                    binding.iconTypeImageView.setBackgroundResource(iconType.second)
-                }
-            })
-            choosePaymentTypeDialog.show()
         }
         return binding.root;
     }
@@ -68,7 +44,7 @@ class AddPaymentFragment : Fragment() {
     }
 
     private fun savePayment(
-        binding: FragmentAddPaymentBinding,
+        binding: FragmentAddEditPaymentBinding,
         viewModel: AddPaymentFragmentViewModel
     ) {
         var cost = 0.0
