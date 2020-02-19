@@ -3,6 +3,7 @@ package com.xpenses.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "payments_table")
 data class LeafPayment(
@@ -15,5 +16,5 @@ data class LeafPayment(
     @ColumnInfo(name = "description")
     var description:String,
     @ColumnInfo(name = "dateTime")
-    var dateTime: Long = System.currentTimeMillis()
+    var dateTime: Date = Date()
 );

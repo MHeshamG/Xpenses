@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.xpenses.room.DateConverters
 import com.xpenses.model.LeafPayment
 
 @Database(entities = [LeafPayment::class], version = 1)
+@TypeConverters(DateConverters::class)
     abstract class PaymentsDatabase : RoomDatabase() {
 
         abstract val paymentDao:PaymentDao
