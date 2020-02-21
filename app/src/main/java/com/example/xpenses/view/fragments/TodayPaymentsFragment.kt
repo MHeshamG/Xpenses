@@ -47,7 +47,7 @@ class TodayPaymentsFragment : Fragment() {
         val viewModelFactory = TodayPaymentsFragmentViewModelFactory(dataSource,application)
         val viewModel = ViewModelProviders.of(this,viewModelFactory).get(TodayPaymentsFragmentViewModel::class.java)
         viewModel.todayPayments.observe(this, Observer { it?.let { adapter.submitList(it) } })
-         //viewModel.totalCost().observe(this, Observer {  binding.totalCostValue.text = it.toString()+" $"})
+        viewModel.totalCost().observe(this, Observer {  adapter2.submitList(it)})
         return binding.root
     }
 
