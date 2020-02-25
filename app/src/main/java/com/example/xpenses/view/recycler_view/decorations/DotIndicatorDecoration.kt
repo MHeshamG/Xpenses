@@ -1,4 +1,4 @@
-package com.example.xpenses.view.recycler_view
+package com.example.xpenses.view.recycler_view.decorations
 
 import android.animation.ArgbEvaluator
 import android.content.Context
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.R
 import com.example.xpenses.dpToPx
+import com.example.xpenses.view.recycler_view.adapters.CarouselAdapter
 
 class DotIndicatorDecoration(context: Context):RecyclerView.ItemDecoration() {
 

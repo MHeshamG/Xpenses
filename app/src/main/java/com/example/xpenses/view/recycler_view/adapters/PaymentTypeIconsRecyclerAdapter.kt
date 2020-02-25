@@ -1,12 +1,11 @@
-package com.example.xpenses.view.recycler_view
+package com.example.xpenses.view.recycler_view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.xpenses.R
 import com.example.xpenses.databinding.PaymentTypeIconLayoutBinding
 import com.example.xpenses.model.PaymentTypeIconResourceList
-import com.xwallet.business.PaymentType
+import com.xpenses.model.PaymentType
 
 class PaymentTypeIconsRecyclerAdapter(private val paymentTypeItemClickListener: OnPaymentTypeItemClickListener) :
     RecyclerView.Adapter<PaymentTypeIconsRecyclerAdapter.PaymentTypeHolder>() {
@@ -17,7 +16,9 @@ class PaymentTypeIconsRecyclerAdapter(private val paymentTypeItemClickListener: 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): PaymentTypeHolder {
-        return PaymentTypeHolder.createPaymentHolder(parent)
+        return PaymentTypeHolder.createPaymentHolder(
+            parent
+        )
     }
 
     override fun onBindViewHolder(holder: PaymentTypeHolder, position: Int) {
@@ -34,7 +35,9 @@ class PaymentTypeIconsRecyclerAdapter(private val paymentTypeItemClickListener: 
             fun createPaymentHolder(parent: ViewGroup): PaymentTypeHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val inflatedView = PaymentTypeIconLayoutBinding.inflate(inflater, parent, false)
-                return PaymentTypeHolder(inflatedView)
+                return PaymentTypeHolder(
+                    inflatedView
+                )
             }
         }
 

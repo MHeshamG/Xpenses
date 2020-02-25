@@ -7,7 +7,7 @@ import android.view.View
 import android.view.Window
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.R
-import com.example.xpenses.view.recycler_view.PaymentTypeIconsRecyclerAdapter
+import com.example.xpenses.view.recycler_view.adapters.PaymentTypeIconsRecyclerAdapter
 
 class PaymentTypeIconsDialog(
     activity: Activity

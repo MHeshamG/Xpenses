@@ -8,26 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.example.xpenses.R
 import com.example.xpenses.databinding.FragmentAddEditPaymentBinding
 import com.example.xpenses.view.dialogs.PaymentTypeIconsDialog
-import com.example.xpenses.view.recycler_view.PaymentTypeIconsRecyclerAdapter
-import com.example.xpenses.view_model.AddPaymentFragmentViewModel
-import com.example.xpenses.view_model.AddPaymentFragmentViewModelFactory
-import com.xpenses.model.LeafPayment
+import com.example.xpenses.view.recycler_view.adapters.PaymentTypeIconsRecyclerAdapter
+import com.xpenses.model.PaymentType
 import com.xpenses.room.PaymentDao
 import com.xpenses.room.PaymentsDatabase
-import com.xwallet.business.PaymentType
 
 /**
  * A simple [Fragment] subclass.
  */
 open class AddEditBaseFragment : Fragment() {
 
-    var choosenPaymentType:PaymentType = PaymentType.FOOD;
+    var choosenPaymentType: PaymentType = PaymentType.FOOD;
     lateinit var binding:FragmentAddEditPaymentBinding
     lateinit var application:Application
     lateinit  var dataSource:PaymentDao
@@ -49,15 +43,17 @@ open class AddEditBaseFragment : Fragment() {
         binding.chooseTypeButton.setOnClickListener {
             val choosePaymentTypeDialog =
                 PaymentTypeIconsDialog(this.requireActivity())
-            choosePaymentTypeDialog.adapter = PaymentTypeIconsRecyclerAdapter(object :
-                PaymentTypeIconsRecyclerAdapter.OnPaymentTypeItemClickListener {
-                override fun onPaymentItemClick(iconType: Pair<PaymentType, Int>) {
-                    choosePaymentTypeDialog.dismiss()
-                    choosenPaymentType = iconType.first
-                    binding.paymentTypeText.text = iconType.first.name
-                    binding.iconTypeImageView.setImageResource(iconType.second)
-                }
-            })
+            choosePaymentTypeDialog.adapter =
+                PaymentTypeIconsRecyclerAdapter(
+                    object :
+                        PaymentTypeIconsRecyclerAdapter.OnPaymentTypeItemClickListener {
+                        override fun onPaymentItemClick(iconType: Pair<PaymentType, Int>) {
+                            choosePaymentTypeDialog.dismiss()
+                            choosenPaymentType = iconType.first
+                            binding.paymentTypeText.text = iconType.first.name
+                            binding.iconTypeImageView.setImageResource(iconType.second)
+                        }
+                    })
             choosePaymentTypeDialog.show()
         }
         return binding.root;

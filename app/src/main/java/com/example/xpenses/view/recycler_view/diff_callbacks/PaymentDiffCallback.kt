@@ -1,4 +1,4 @@
-package com.example.xpenses.view.recycler_view
+package com.example.xpenses.view.recycler_view.diff_callbacks
 
 import androidx.recyclerview.widget.DiffUtil
 import com.xpenses.model.LeafPayment

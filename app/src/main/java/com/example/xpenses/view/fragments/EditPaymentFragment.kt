@@ -13,7 +13,7 @@ import com.example.xpenses.model.PaymentTypeIconResourceMap
 import com.example.xpenses.view_model.EditPaymentFragmentViewModel
 import com.example.xpenses.view_model.EditPaymentFragmentViewModelFactory
 import com.xpenses.model.LeafPayment
-import com.xwallet.business.PaymentType
+import com.xpenses.model.PaymentType
 
 /**
  * A simple [Fragment] subclass.

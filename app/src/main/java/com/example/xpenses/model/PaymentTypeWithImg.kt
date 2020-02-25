@@ -1,7 +1,7 @@
 package com.example.xpenses.model
 
 import com.example.xpenses.R
-import com.xwallet.business.PaymentType
+import com.xpenses.model.PaymentType
 
 val PaymentTypeIconResourceMap = mapOf(
     PaymentType.FOOD to R.drawable.icons8_food_100,

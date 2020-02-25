@@ -1,4 +1,4 @@
-package com.xwallet.business
+package com.xpenses.model
 
 enum class PaymentType(
     val typeInt:Int
