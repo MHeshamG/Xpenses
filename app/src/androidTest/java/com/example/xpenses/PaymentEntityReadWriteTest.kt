@@ -15,8 +15,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.xpenses.model.LeafPayment
-import com.xpenses.model.PaymentType
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNull
 import java.time.LocalDate

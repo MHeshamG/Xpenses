@@ -1,27 +1,27 @@
 package com.example.xpenses
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.xpenses.DateTimeProvider.Companion.getTodayDate
+import com.example.xpenses.DateTimeProvider.Companion.getTomorrowDate
 import com.example.xpenses.ui_data_models.DataItem
 import com.example.xpenses.view_model.TodayPaymentsFragmentViewModel
-import com.xpenses.model.LeafPayment
 import com.xpenses.model.PaymentType
 import com.xpenses.room.PaymentDao
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockk
-import junit.framework.Assert.assertEquals
+import org.junit.After
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import java.util.*
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class TodayPaymentsFragmentViewModelTests {
 
     private lateinit var todayPaymentsFragmentViewModel: TodayPaymentsFragmentViewModel
-
 
     @Before
     fun setup() {
@@ -32,9 +32,14 @@ class TodayPaymentsFragmentViewModelTests {
                 getTodayDate(),
                 getTomorrowDate()
             )
-        } returns MutableLiveData<List<LeafPayment>>()
+        } returns MutableLiveData()
         val application = mockk<Application>()
         todayPaymentsFragmentViewModel = TodayPaymentsFragmentViewModel(paymentDao, application)
+    }
+
+    @After
+    fun end(){
+       // MockKAnnotations.
     }
 
     @Test
@@ -51,7 +56,7 @@ class TodayPaymentsFragmentViewModelTests {
             todayPaymentsFragmentViewModel,
             listOfPayments
         ) as DataItem.PaymentsCost
-        assertEquals(paymentsTotalCost.totalCost, expectedTotalCostOfPayments)
+        assertEquals(paymentsTotalCost.totalCost, expectedTotalCostOfPayments,0.0)
     }
 
     @Test
@@ -67,25 +72,5 @@ class TodayPaymentsFragmentViewModelTests {
         val paymentsDistribution = createPaymentsDistributionDataItemMethod.invoke(todayPaymentsFragmentViewModel,listOfPayments) as DataItem.PaymentsDistribution
         val actualMap = paymentsDistribution.mapOfPaymentTypeAgainstCost
         assertEquals(actualMap,expectedMap)
-    }
-
-    private fun getTodayDate(): Date {
-        val calendar = Calendar.getInstance()
-        setDateParams(calendar)
-        return calendar.time
-    }
-
-    private fun getTomorrowDate(): Date {
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_MONTH, 1)
-        setDateParams(calendar)
-        return calendar.time
-    }
-
-    private fun setDateParams(calendar: Calendar) {
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
     }
 }

@@ -44,4 +44,8 @@
             android:name="payment_id"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/monthPaymentsFragment"
+        android:name="com.example.xpenses.view.fragments.MonthPaymentsFragment"
+        android:label="MonthPaymentsFragment" />
 </navigation>

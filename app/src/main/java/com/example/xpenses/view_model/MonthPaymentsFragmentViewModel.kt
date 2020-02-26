@@ -3,22 +3,24 @@ package com.example.xpenses.view_model
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
-import com.example.xpenses.DateTimeProvider.Companion.getTodayDate
-import com.example.xpenses.DateTimeProvider.Companion.getTomorrowDate
+import com.example.xpenses.DateTimeProvider
 import com.example.xpenses.ui_data_models.DataItem
 import com.xpenses.model.LeafPayment
 import com.xpenses.model.PaymentType
 import com.xpenses.room.PaymentDao
 
-class TodayPaymentsFragmentViewModel(val paymentDao: PaymentDao, application: Application) :
-    AndroidViewModel(application) {
+class MonthPaymentsFragmentViewModel (val paymentDao: PaymentDao, application: Application) :
+AndroidViewModel(application) {
 
-    val todayPayments = paymentDao.getAllPaymentsBetweenDates(getTodayDate(), getTomorrowDate())
+    val thisMonthPayments = paymentDao.getAllPaymentsBetweenDates(
+        DateTimeProvider.getThisMonthStartDate(),
+        DateTimeProvider.getNextMonthStartDate()
+    )
 
     fun getPaymentsInfo(): MediatorLiveData<List<DataItem>> {
         val paymentsInfoLiveData = MediatorLiveData<List<DataItem>>()
         paymentsInfoLiveData.addSource(
-            todayPayments
+            thisMonthPayments
         ) { payments ->
             run {
                 val paymentsInfo = mutableListOf<DataItem>()
