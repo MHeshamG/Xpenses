@@ -12,8 +12,6 @@ import com.xpenses.model.PaymentType
 
 class PaymentViewHolder private constructor(val binding: PaymentLayoutBinding) : RecyclerView.ViewHolder(binding.root){
 
-    private var leafPayment: LeafPayment? = null
-
     companion object {
         fun createPaymentHolder(parent: ViewGroup): PaymentViewHolder {
             val inflater = LayoutInflater.from(parent.context)
@@ -23,7 +21,6 @@ class PaymentViewHolder private constructor(val binding: PaymentLayoutBinding) :
     }
 
     fun bindPayment(leafPayment: LeafPayment, paymentItemClickListener: RecyclerAdapter.OnPaymentItemClickListener) {
-        this.leafPayment = leafPayment
         binding.root.setOnClickListener {paymentItemClickListener.onPaymentItemClick(leafPayment.paymentId)};
         binding.paymentTypeText.text = PaymentType.fromInt(leafPayment.type).toString()
         binding.paymentCost.text = leafPayment.cost.toString() + "$"

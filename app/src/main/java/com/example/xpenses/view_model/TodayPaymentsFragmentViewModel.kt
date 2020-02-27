@@ -36,7 +36,7 @@ class TodayPaymentsFragmentViewModel(val paymentDao: PaymentDao, application: Ap
     private fun createPaymentsDistributionDataItem(payments: List<LeafPayment>): DataItem.PaymentsDistribution {
         val mapOfPaymentsTypeAgainstCost = mutableMapOf<PaymentType, Double>()
 
-        payments.iterator().forEach {
+        payments.forEach {
             val currentCost = mapOfPaymentsTypeAgainstCost[PaymentType.fromInt(it.type)] ?: 0.0
             mapOfPaymentsTypeAgainstCost[PaymentType.fromInt(it.type)!!] = it.cost + currentCost
         }

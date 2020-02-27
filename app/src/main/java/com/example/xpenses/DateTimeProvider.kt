@@ -45,5 +45,12 @@ class DateTimeProvider {
             calendar.set(Calendar.DAY_OF_MONTH, 1)
             setDateParamsHoursAndLess(calendar)
         }
+
+        fun getDateFromDateTime(dateTime:Date):Date{
+            val calendar = Calendar.getInstance()
+            calendar.time = dateTime
+            setDateParamsHoursAndLess(calendar)
+            return calendar.time
+        }
     }
 }
