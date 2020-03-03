@@ -6,9 +6,9 @@ import androidx.lifecycle.MediatorLiveData
 import com.example.xpenses.DateTimeProvider.Companion.getTodayDate
 import com.example.xpenses.DateTimeProvider.Companion.getTomorrowDate
 import com.example.xpenses.ui_data_models.DataItem
-import com.xpenses.model.LeafPayment
+import com.example.xpenses.model.Payment
 import com.xpenses.model.PaymentType
-import com.xpenses.room.PaymentDao
+import com.example.xpenses.room.PaymentDao
 
 class TodayPaymentsFragmentViewModel(val paymentDao: PaymentDao, application: Application) :
     AndroidViewModel(application) {
@@ -30,10 +30,10 @@ class TodayPaymentsFragmentViewModel(val paymentDao: PaymentDao, application: Ap
         return paymentsInfoLiveData
     }
 
-    private fun createTotalPaymentsCostDataItem(payments: List<LeafPayment>) =
-        DataItem.PaymentsCost(payments.sumByDouble { it.cost })
+    private fun createTotalPaymentsCostDataItem(payments: List<Payment>) =
+        DataItem.PaymentsTotalCost(payments.sumByDouble { it.cost })
 
-    private fun createPaymentsDistributionDataItem(payments: List<LeafPayment>): DataItem.PaymentsDistribution {
+    private fun createPaymentsDistributionDataItem(payments: List<Payment>): DataItem.PaymentsCostDistributionAgainstType {
         val mapOfPaymentsTypeAgainstCost = mutableMapOf<PaymentType, Double>()
 
         payments.forEach {
@@ -41,6 +41,6 @@ class TodayPaymentsFragmentViewModel(val paymentDao: PaymentDao, application: Ap
             mapOfPaymentsTypeAgainstCost[PaymentType.fromInt(it.type)!!] = it.cost + currentCost
         }
 
-        return DataItem.PaymentsDistribution(mapOfPaymentsTypeAgainstCost)
+        return DataItem.PaymentsCostDistributionAgainstType(mapOfPaymentsTypeAgainstCost)
     }
 }

@@ -5,8 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.xpenses.room.PaymentDao
-import com.xpenses.room.PaymentsDatabase
+import com.example.xpenses.room.PaymentDao
+import com.example.xpenses.room.PaymentsDatabase
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.After
 import org.junit.Before

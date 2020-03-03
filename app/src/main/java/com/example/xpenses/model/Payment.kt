@@ -1,4 +1,4 @@
-package com.xpenses.model
+package com.example.xpenses.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "payments_table")
-data class LeafPayment(
+data class Payment(
     @PrimaryKey(autoGenerate = true)
     var paymentId:Long = 0,
     @ColumnInfo(name = "cost")
@@ -17,4 +17,4 @@ data class LeafPayment(
     var description:String,
     @ColumnInfo(name = "dateTime")
     var dateTime: Date = Date()
-);
+)

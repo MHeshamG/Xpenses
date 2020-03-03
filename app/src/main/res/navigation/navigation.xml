@@ -9,7 +9,7 @@
         android:id="@+id/todayPaymentsFragment"
         android:name="com.example.xpenses.view.fragments.TodayPaymentsFragment"
         android:label="TodayPayments"
-        tools:layout="@layout/fragment_today_payments">
+        tools:layout="@layout/fragment_base_payments">
         <action
             android:id="@+id/action_todayPaymentsFragment_to_addEditPaymentFragment"
             app:destination="@id/addPaymentFragment" />

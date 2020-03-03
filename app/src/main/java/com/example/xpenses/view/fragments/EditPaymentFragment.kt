@@ -12,7 +12,7 @@ import com.example.xpenses.databinding.FragmentAddEditPaymentBinding
 import com.example.xpenses.model.PaymentTypeIconResourceMap
 import com.example.xpenses.view_model.EditPaymentFragmentViewModel
 import com.example.xpenses.view_model.EditPaymentFragmentViewModelFactory
-import com.xpenses.model.LeafPayment
+import com.example.xpenses.model.Payment
 import com.xpenses.model.PaymentType
 
 /**
@@ -49,7 +49,7 @@ class EditPaymentFragment : AddEditBaseFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.edit_payment_fragment_menu, menu);
+        inflater.inflate(R.menu.edit_payment_fragment_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -58,24 +58,24 @@ class EditPaymentFragment : AddEditBaseFragment() {
         }; return true
     }
 
-    private fun loadArgsToView(binding: FragmentAddEditPaymentBinding, leafPayment: LeafPayment) {
-        binding.iconTypeImageView.setImageResource(PaymentTypeIconResourceMap.get(PaymentType.fromInt(leafPayment.type))!!)
-        binding.paymentTypeText.text = PaymentType.fromInt(leafPayment.type)?.name
-        binding.paymentCost.editText?.setText(leafPayment.cost.toString())
-        binding.paymentDescription.editText?.setText(leafPayment.description.toString())
+    private fun loadArgsToView(binding: FragmentAddEditPaymentBinding, payment: Payment) {
+        binding.iconTypeImageView.setImageResource(PaymentTypeIconResourceMap.get(PaymentType.fromInt(payment.type))!!)
+        binding.paymentTypeText.text = PaymentType.fromInt(payment.type)?.name
+        binding.paymentCost.editText?.setText(payment.cost.toString())
+        binding.paymentDescription.editText?.setText(payment.description)
     }
 
     private fun updatePayment(
         binding: FragmentAddEditPaymentBinding,
-        viewModel: EditPaymentFragmentViewModel, leafPayment: LeafPayment
+        viewModel: EditPaymentFragmentViewModel, payment: Payment
     ) {
         var cost = 0.0
         var description = ""
         binding.paymentCost.editText?.let { cost = it.text.toString().toDouble() }
         binding.paymentDescription.editText?.let { description = it.text.toString() }
-        leafPayment.cost = cost
-        leafPayment.description = description
-        viewModel.onUpdatePayment(leafPayment)
+        payment.cost = cost
+        payment.description = description
+        viewModel.onUpdatePayment(payment)
     }
 
 

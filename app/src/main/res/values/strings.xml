@@ -4,4 +4,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about_statment">Xpenses App helps you to keep track of your expenses with widly useful features</string>
+    <string name="this_month">This Month</string>
+    <string name="about">about</string>
+    <string name="total_expenses">Total Expenses</string>
+    <string name="payments_of">Payments Of:</string>
 </resources>

@@ -3,7 +3,7 @@ package com.example.xpenses.view_model
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.xpenses.room.PaymentDao
+import com.example.xpenses.room.PaymentDao
 
 class MonthPaymentsFragmentViewModelFactory(
     private val dataSource: PaymentDao,

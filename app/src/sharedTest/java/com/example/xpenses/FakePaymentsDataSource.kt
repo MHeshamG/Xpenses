@@ -1,13 +1,13 @@
 package com.example.xpenses
 
-import com.xpenses.model.LeafPayment
+import com.example.xpenses.model.Payment
 import com.xpenses.model.PaymentType
 import java.util.*
 
 class FakePaymentsDataSource {
     companion object {
-        fun createPaymentWithCustomDate(date: Date): LeafPayment {
-            return LeafPayment(
+        fun createPaymentWithCustomDate(date: Date): Payment {
+            return Payment(
                 cost = 102.0,
                 description = "description",
                 type = PaymentType.ENTERTAINMENT.typeInt,
@@ -15,8 +15,8 @@ class FakePaymentsDataSource {
             )
         }
 
-        fun createPayment(): LeafPayment {
-            return LeafPayment(
+        fun createPayment(): Payment {
+            return Payment(
                 cost = 102.0,
                 description = "description",
                 type = PaymentType.ENTERTAINMENT.typeInt
@@ -24,17 +24,17 @@ class FakePaymentsDataSource {
         }
 
         fun createPayments() = listOf(
-            LeafPayment(
+            Payment(
                 cost = 102.0,
                 description = "description",
                 type = PaymentType.FOOD.typeInt
             ),
-            LeafPayment(
+            Payment(
                 cost = 200.0,
                 description = "description",
                 type = PaymentType.ENTERTAINMENT.typeInt
             ),
-            LeafPayment(
+            Payment(
                 cost = 300.0,
                 description = "description",
                 type = PaymentType.SHOPPING.typeInt

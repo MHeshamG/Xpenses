@@ -1,33 +1,33 @@
-package com.xpenses.room
+package com.example.xpenses.room
 
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.xpenses.model.LeafPayment
+import com.example.xpenses.model.Payment
 import java.util.*
 
 @Dao
 interface PaymentDao {
 
     @Insert
-    fun insert(payment: LeafPayment)
+    fun insert(payment: Payment)
 
     @Update
-    fun update(payment: LeafPayment)
+    fun update(payment: Payment)
 
     @Delete
-    fun delete(payment: LeafPayment)
+    fun delete(payment: Payment)
 
     @Query("DELETE FROM payments_table")
     fun deleteAllPayments()
 
     @Query("SELECT * FROM payments_table ORDER BY cost DESC")
-    fun getAllPayments(): LiveData<List<LeafPayment>>
+    fun getAllPayments(): LiveData<List<Payment>>
 
     @Query("SELECT * FROM payments_table WHERE dateTime >= :from AND dateTime < :to ORDER BY cost DESC")
-    fun getAllPaymentsBetweenDates(from: Date, to: Date): LiveData<List<LeafPayment>>
+    fun getAllPaymentsBetweenDates(from: Date, to: Date): LiveData<List<Payment>>
 
     @Query("SELECT * FROM payments_table WHERE paymentId=:paymentId")
-    fun getPaymentById(paymentId:Long): LiveData<LeafPayment>
+    fun getPaymentById(paymentId:Long): LiveData<Payment>
 
 }

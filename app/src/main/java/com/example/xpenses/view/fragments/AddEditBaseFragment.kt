@@ -13,8 +13,8 @@ import com.example.xpenses.databinding.FragmentAddEditPaymentBinding
 import com.example.xpenses.view.dialogs.PaymentTypeIconsDialog
 import com.example.xpenses.view.recycler_view.adapters.PaymentTypeIconsRecyclerAdapter
 import com.xpenses.model.PaymentType
-import com.xpenses.room.PaymentDao
-import com.xpenses.room.PaymentsDatabase
+import com.example.xpenses.room.PaymentDao
+import com.example.xpenses.room.PaymentsDatabase
 
 /**
  * A simple [Fragment] subclass.
@@ -24,7 +24,7 @@ open class AddEditBaseFragment : Fragment() {
     var choosenPaymentType: PaymentType = PaymentType.FOOD;
     lateinit var binding:FragmentAddEditPaymentBinding
     lateinit var application:Application
-    lateinit  var dataSource:PaymentDao
+    lateinit  var dataSource: PaymentDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

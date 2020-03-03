@@ -2,8 +2,8 @@ package com.example.xpenses.view_model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.xpenses.model.LeafPayment
-import com.xpenses.room.PaymentDao
+import com.example.xpenses.model.Payment
+import com.example.xpenses.room.PaymentDao
 import kotlinx.coroutines.*
 
 class EditPaymentFragmentViewModel(val paymentDao: PaymentDao, val paymentId:Long, application: Application) :
@@ -14,13 +14,13 @@ class EditPaymentFragmentViewModel(val paymentDao: PaymentDao, val paymentId:Lon
     private val EditPaymentFragmentViewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + EditPaymentFragmentViewModelJob)
 
-    fun onUpdatePayment(payment: LeafPayment) {
+    fun onUpdatePayment(payment: Payment) {
         uiScope.launch {
             updatePayment(payment)
         }
     }
 
-    private suspend fun updatePayment(payment: LeafPayment) {
+    private suspend fun updatePayment(payment: Payment) {
         withContext(Dispatchers.IO) {
             paymentDao.update(payment)
         }
@@ -32,9 +32,9 @@ class EditPaymentFragmentViewModel(val paymentDao: PaymentDao, val paymentId:Lon
         }
     }
 
-    private suspend fun deletePayment(leafPayment: LeafPayment) {
+    private suspend fun deletePayment(payment: Payment) {
         withContext(Dispatchers.IO) {
-            paymentDao.delete(leafPayment)
+            paymentDao.delete(payment)
         }
     }
 

@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.xpenses.databinding.FragmentAddEditPaymentBinding
 import com.example.xpenses.view_model.AddPaymentFragmentViewModel
 import com.example.xpenses.view_model.AddPaymentFragmentViewModelFactory
-import com.xpenses.model.LeafPayment
+import com.example.xpenses.model.Payment
 
 /**
  * A simple [Fragment] subclass.
@@ -29,7 +29,7 @@ class AddPaymentFragment : AddEditBaseFragment() {
         binding.saveButton.setOnClickListener {
             onSaveButtonClicked(viewModel)
         }
-        return binding.root;
+        return binding.root
     }
 
     private fun onSaveButtonClicked(viewModel: AddPaymentFragmentViewModel) {
@@ -46,7 +46,7 @@ class AddPaymentFragment : AddEditBaseFragment() {
         binding.paymentCost.editText?.let { cost = it.text.toString().toDouble() }
         binding.paymentDescription.editText?.let { description = it.text.toString() }
         viewModel.onSavePayment(
-            LeafPayment(
+            Payment(
                 cost = cost,
                 description = description,
                 type = choosenPaymentType.typeInt

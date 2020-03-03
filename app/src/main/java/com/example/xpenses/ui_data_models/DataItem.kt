@@ -7,11 +7,16 @@ sealed class DataItem {
 
     abstract val id: Long
 
-    data class PaymentsCost(val totalCost: Double) : DataItem() {
+    data class PaymentsTotalCost(val totalCost: Double) : DataItem() {
         override val id: Long = 1
     }
 
-    data class PaymentsDistribution(val mapOfPaymentTypeAgainstCost: Map<PaymentType, Double>) :
+    data class PaymentsCostDistributionAgainstType(val mapOfPaymentTypeAgainstCost: Map<PaymentType, Double>) :
+        DataItem() {
+        override val id: Long = 2
+    }
+
+    data class PaymentsTotalCostDistributionAgainstDaysInMonth(val listOfPaymentDayDateAgainstCost: List<Pair<Int, Double>>) :
         DataItem() {
         override val id: Long = 2
     }

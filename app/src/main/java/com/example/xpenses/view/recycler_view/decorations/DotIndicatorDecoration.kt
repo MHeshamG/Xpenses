@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.R
 import com.example.xpenses.dpToPx
-import com.example.xpenses.view.recycler_view.adapters.CarouselAdapter
+import com.example.xpenses.view.recycler_view.adapters.PaymentsInfoCarouselAdapter
 
 class DotIndicatorDecoration(context: Context):RecyclerView.ItemDecoration() {
 
@@ -42,7 +42,7 @@ class DotIndicatorDecoration(context: Context):RecyclerView.ItemDecoration() {
         super.onDrawOver(c, parent, state)
 
         parent.adapter?.takeIf { it.itemCount > 0 }?.run {
-            val itemCount = (this as CarouselAdapter).itemCount
+            val itemCount = (this as PaymentsInfoCarouselAdapter).itemCount
 
             (parent.layoutManager as? LinearLayoutManager)?.let { layoutManager ->
                 val firstItemPosition = layoutManager.findFirstVisibleItemPosition()

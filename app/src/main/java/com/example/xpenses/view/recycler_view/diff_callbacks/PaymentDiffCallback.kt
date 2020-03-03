@@ -1,10 +1,10 @@
 package com.example.xpenses.view.recycler_view.diff_callbacks
 
 import androidx.recyclerview.widget.DiffUtil
-import com.xpenses.model.LeafPayment
+import com.example.xpenses.model.Payment
 
-class PaymentDiffCallback: DiffUtil.ItemCallback<LeafPayment>() {
-    override fun areItemsTheSame(oldItem: LeafPayment, newItem: LeafPayment) = oldItem.paymentId == newItem.paymentId
+class PaymentDiffCallback: DiffUtil.ItemCallback<Payment>() {
+    override fun areItemsTheSame(oldItem: Payment, newItem: Payment) = oldItem.paymentId == newItem.paymentId
 
-    override fun areContentsTheSame(oldItem: LeafPayment, newItem: LeafPayment) = oldItem == newItem
+    override fun areContentsTheSame(oldItem: Payment, newItem: Payment) = oldItem == newItem
 }
