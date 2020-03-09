@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.databinding.PaymentsOfDaysInMonthGraphLayoutBinding
-import com.example.xpenses.ui_data_models.DataItem
+import com.example.xpenses.model.PaymentsDerivedInfo
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
@@ -26,7 +26,7 @@ class PaymentsBarChartViewHolder(val binding: PaymentsOfDaysInMonthGraphLayoutBi
         }
     }
 
-    fun bind(paymentsDistributionDistributionAgainstType: DataItem.PaymentsTotalCostDistributionAgainstDaysInMonth) {
+    fun bind(paymentsDistributionDistributionAgainstType: PaymentsDerivedInfo.PaymentsTotalCostDistributionAgainstDaysInMonth) {
         val list =
             paymentsDistributionDistributionAgainstType.listOfPaymentDayDateAgainstCost.map { paymentsTotalCostOfDay ->
                 BarEntry(

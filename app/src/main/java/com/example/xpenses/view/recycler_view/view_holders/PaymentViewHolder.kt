@@ -24,7 +24,7 @@ class PaymentViewHolder private constructor(val binding: PaymentLayoutBinding) :
         binding.root.setOnClickListener {paymentItemClickListener.onPaymentItemClick(payment.paymentId)}
         binding.paymentTypeText.text = PaymentType.fromInt(payment.type).toString()
         binding.paymentCost.text = payment.cost.toString() + "$"
-        binding.paymentTime.text = DateFormater.getDateFromMillis(payment.dateTime.time)
+        binding.paymentTime.text = DateFormater.getFullDateTimeFromMillis(payment.dateTime.time)
         binding.paymentTypeIcon.setBackgroundResource(PaymentTypeIconResourceMap[PaymentType.fromInt(payment.type)]!!)
     }
 }

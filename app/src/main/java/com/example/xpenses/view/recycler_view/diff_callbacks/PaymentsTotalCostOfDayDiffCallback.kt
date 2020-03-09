@@ -1,16 +1,16 @@
 package com.example.xpenses.view.recycler_view.diff_callbacks
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.xpenses.model.PaymentsTotalCostOfDay
+import com.example.xpenses.model.PaymentsDerivedInfo
 
-class PaymentsTotalCostOfDayDiffCallback : DiffUtil.ItemCallback<PaymentsTotalCostOfDay>() {
+class PaymentsTotalCostOfDayDiffCallback : DiffUtil.ItemCallback<PaymentsDerivedInfo.PaymentsTotalCostOfDate>() {
     override fun areItemsTheSame(
-        oldItem: PaymentsTotalCostOfDay,
-        newItem: PaymentsTotalCostOfDay
-    ): Boolean = oldItem.dayDate == newItem.dayDate
+        oldItem: PaymentsDerivedInfo.PaymentsTotalCostOfDate,
+        newItem: PaymentsDerivedInfo.PaymentsTotalCostOfDate
+    ): Boolean = oldItem.date == newItem.date
 
     override fun areContentsTheSame(
-        oldItem: PaymentsTotalCostOfDay,
-        newItem: PaymentsTotalCostOfDay
+        oldItem: PaymentsDerivedInfo.PaymentsTotalCostOfDate,
+        newItem: PaymentsDerivedInfo.PaymentsTotalCostOfDate
     ): Boolean = oldItem == newItem
 }

@@ -2,6 +2,7 @@ package com.example.xpenses.view.fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,21 +22,24 @@ import com.example.xpenses.view_model.TodayPaymentsFragmentViewModelFactory
 class TodayPaymentsFragment : BasePaymentsFragment() {
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
+
         setHasOptionsMenu(true)
+
+        //build adapter
         val adapter = createAdapter()
         binding.todayPaymentsRecyclerView.adapter = adapter
+
+        //create view model
         val viewModelFactory = TodayPaymentsFragmentViewModelFactory(dataSource, application)
-        val viewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(TodayPaymentsFragmentViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, viewModelFactory).get(TodayPaymentsFragmentViewModel::class.java)
+
+        //fetch the data to be represented on the ui
         viewModel.todayPayments.observe(this, Observer { it?.let { adapter.submitList(it) } })
-        viewModel.getPaymentsInfo()
-            .observe(this, Observer { paymentsInfoCarouselAdapter.submitList(it) })
+        viewModel.getPaymentsInfo().observe(this, Observer { paymentsInfoCarouselAdapter.submitList(it) })
+
+
         return binding.root
     }
 
@@ -43,12 +47,7 @@ class TodayPaymentsFragment : BasePaymentsFragment() {
         return PaymentsOfDayAdapter(object :
             PaymentsOfDayAdapter.OnPaymentItemClickListener {
             override fun onPaymentItemClick(paymentId: Long) {
-                findNavController()
-                    .navigate(
-                        TodayPaymentsFragmentDirections.actionTodayPaymentsFragmentToEditPaymentFragment(
-                            paymentId
-                        )
-                    )
+                findNavController().navigate(TodayPaymentsFragmentDirections.actionTodayPaymentsFragmentToEditPaymentFragment(paymentId))
             }
         })
     }

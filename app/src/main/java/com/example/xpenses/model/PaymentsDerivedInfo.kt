@@ -1,23 +1,25 @@
-package com.example.xpenses.ui_data_models
+package com.example.xpenses.model
 
 import com.xpenses.model.PaymentType
+import java.util.*
 
 
-sealed class DataItem {
+sealed class PaymentsDerivedInfo {
 
     abstract val id: Long
 
-    data class PaymentsTotalCost(val totalCost: Double) : DataItem() {
+    data class PaymentsTotalCostOfDate(var date: Date, var totalCost: Double) : PaymentsDerivedInfo() {
         override val id: Long = 1
+        lateinit var dateString:String
     }
 
     data class PaymentsCostDistributionAgainstType(val mapOfPaymentTypeAgainstCost: Map<PaymentType, Double>) :
-        DataItem() {
+        PaymentsDerivedInfo() {
         override val id: Long = 2
     }
 
     data class PaymentsTotalCostDistributionAgainstDaysInMonth(val listOfPaymentDayDateAgainstCost: List<Pair<Int, Double>>) :
-        DataItem() {
+        PaymentsDerivedInfo() {
         override val id: Long = 2
     }
 }

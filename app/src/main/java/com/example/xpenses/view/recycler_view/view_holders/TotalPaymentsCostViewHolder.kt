@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.databinding.TotalExpensesCostLayoutBinding
-import com.example.xpenses.ui_data_models.DataItem
+import com.example.xpenses.formaters.DateFormater
+import com.example.xpenses.model.PaymentsDerivedInfo
 
 class TotalPaymentsCostViewHolder(val binding: TotalExpensesCostLayoutBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -18,7 +19,8 @@ class TotalPaymentsCostViewHolder(val binding: TotalExpensesCostLayoutBinding): 
         }
     }
 
-    fun bind(totalCost: DataItem.PaymentsTotalCost) {
-        binding.totalCostValue.text = totalCost.totalCost.toString()
+    fun bind(totalCostOfDate: PaymentsDerivedInfo.PaymentsTotalCostOfDate) {
+        binding.totalCostValue.text = totalCostOfDate.totalCost.toString()
+        binding.dateText.text = totalCostOfDate.dateString
     }
 }

@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.xpenses.ui_data_models.DataItem
+import com.example.xpenses.model.PaymentsDerivedInfo
 import com.example.xpenses.view.recycler_view.diff_callbacks.CarouselDiffCallback
 import com.example.xpenses.view.recycler_view.view_holders.PaymentsBarChartViewHolder
 import com.example.xpenses.view.recycler_view.view_holders.PaymentsChartViewHolder
@@ -12,7 +12,7 @@ import com.example.xpenses.view.recycler_view.view_holders.TotalPaymentsCostView
 import java.lang.ClassCastException
 
 class PaymentsInfoCarouselAdapter :
-    ListAdapter<DataItem, RecyclerView.ViewHolder>(CarouselDiffCallback()) {
+    ListAdapter<PaymentsDerivedInfo, RecyclerView.ViewHolder>(CarouselDiffCallback()) {
 
 
     private val ITEM_VIEW_TYPE_TOTAL_COST = 0
@@ -31,16 +31,15 @@ class PaymentsInfoCarouselAdapter :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is TotalPaymentsCostViewHolder -> {
-                val item = getItem(position) as DataItem.PaymentsTotalCost
+                val item = getItem(position) as PaymentsDerivedInfo.PaymentsTotalCostOfDate
                 holder.bind(item)
             }
             is PaymentsChartViewHolder -> {
-                Log.d("xxx",getItem(position).toString())
-                val item = getItem(position) as DataItem.PaymentsCostDistributionAgainstType
+                val item = getItem(position) as PaymentsDerivedInfo.PaymentsCostDistributionAgainstType
                 holder.bind(item)
             }
             is PaymentsBarChartViewHolder -> {
-                val item = getItem(position) as DataItem.PaymentsTotalCostDistributionAgainstDaysInMonth
+                val item = getItem(position) as PaymentsDerivedInfo.PaymentsTotalCostDistributionAgainstDaysInMonth
                 holder.bind(item)
             }
         }
@@ -48,9 +47,9 @@ class PaymentsInfoCarouselAdapter :
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is DataItem.PaymentsTotalCost -> ITEM_VIEW_TYPE_TOTAL_COST
-            is DataItem.PaymentsCostDistributionAgainstType -> ITEM_VIEW_TYPE_COST_GRAPH
-            is DataItem.PaymentsTotalCostDistributionAgainstDaysInMonth -> ITEM_VIEW_TYPE_COST_PER_DAY_GRAPH
+            is PaymentsDerivedInfo.PaymentsTotalCostOfDate -> ITEM_VIEW_TYPE_TOTAL_COST
+            is PaymentsDerivedInfo.PaymentsCostDistributionAgainstType -> ITEM_VIEW_TYPE_COST_GRAPH
+            is PaymentsDerivedInfo.PaymentsTotalCostDistributionAgainstDaysInMonth -> ITEM_VIEW_TYPE_COST_PER_DAY_GRAPH
         }
     }
 }

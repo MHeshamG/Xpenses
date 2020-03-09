@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.xpenses.DateTimeProvider.Companion.getTodayDate
 import com.example.xpenses.DateTimeProvider.Companion.getTomorrowDate
-import com.example.xpenses.ui_data_models.DataItem
+import com.example.xpenses.model.PaymentsDerivedInfo
 import com.example.xpenses.view_model.TodayPaymentsFragmentViewModel
 import com.xpenses.model.PaymentType
 import com.example.xpenses.room.PaymentDao
@@ -55,7 +55,7 @@ class TodayPaymentsFragmentViewModelTests {
         val paymentsTotalCost = createTotalPaymentsCostDataItemMethod.invoke(
             todayPaymentsFragmentViewModel,
             listOfPayments
-        ) as DataItem.PaymentsTotalCost
+        ) as PaymentsDerivedInfo.PaymentsTotalCostOfDate
         assertEquals(paymentsTotalCost.totalCost, expectedTotalCostOfPayments,0.0)
     }
 
@@ -69,7 +69,7 @@ class TodayPaymentsFragmentViewModelTests {
         createPaymentsDistributionDataItemMethod.isAccessible = true
         val listOfPayments = FakePaymentsDataSource.createPayments()
         val expectedMap = mapOf(PaymentType.SHOPPING to 300.0,PaymentType.FOOD to 102.0,PaymentType.ENTERTAINMENT to 200.0)
-        val paymentsDistribution = createPaymentsDistributionDataItemMethod.invoke(todayPaymentsFragmentViewModel,listOfPayments) as DataItem.PaymentsCostDistributionAgainstType
+        val paymentsDistribution = createPaymentsDistributionDataItemMethod.invoke(todayPaymentsFragmentViewModel,listOfPayments) as PaymentsDerivedInfo.PaymentsCostDistributionAgainstType
         val actualMap = paymentsDistribution.mapOfPaymentTypeAgainstCost
         assertEquals(actualMap,expectedMap)
     }

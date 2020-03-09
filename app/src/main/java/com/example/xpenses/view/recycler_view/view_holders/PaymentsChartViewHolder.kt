@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.databinding.TotalExpensesGraphLayoutBinding
-import com.example.xpenses.ui_data_models.DataItem
+import com.example.xpenses.model.PaymentsDerivedInfo
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -23,7 +23,7 @@ class PaymentsChartViewHolder(val binding: TotalExpensesGraphLayoutBinding): Rec
         }
     }
 
-    fun bind(paymentsCostDistributionAgainstType: DataItem.PaymentsCostDistributionAgainstType) {
+    fun bind(paymentsCostDistributionAgainstType: PaymentsDerivedInfo.PaymentsCostDistributionAgainstType) {
         val list = paymentsCostDistributionAgainstType.mapOfPaymentTypeAgainstCost.map { paymentToCostEntry ->
             PieEntry(paymentToCostEntry.value.toFloat(), paymentToCostEntry.key.name)
         }
