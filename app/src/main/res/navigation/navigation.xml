@@ -11,11 +11,10 @@
         android:label="TodayPayments"
         tools:layout="@layout/fragment_base_payments">
         <action
-            android:id="@+id/action_todayPaymentsFragment_to_addEditPaymentFragment"
-            app:destination="@+id/addPaymentFragment">
-            <argument
-                android:name="dayDateString"
-                android:defaultValue="default" />
+            android:id="@+id/action_todayPaymentsFragment_to_addPaymentFragment"
+            app:destination="@id/addPaymentFragment" >
+            <argument android:defaultValue="default"
+                android:name="dayDateString" />
         </action>
         <action
             android:id="@+id/action_todayPaymentsFragment_to_editPaymentFragment"
