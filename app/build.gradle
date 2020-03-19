@@ -71,8 +71,14 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
-    //koin
-    implementation 'org.koin:koin-android:2.0.1'
+    // koin version
+    def koin_version = '2.0.1'
+
+    // Koin for Android
+    implementation "org.koin:koin-android:$koin_version"
+
+    // or Koin for view model features
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

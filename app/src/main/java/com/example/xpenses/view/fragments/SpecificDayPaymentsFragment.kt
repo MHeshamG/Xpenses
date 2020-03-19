@@ -2,7 +2,6 @@ package com.example.xpenses.view.fragments
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -12,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.xpenses.R
 import com.example.xpenses.view.recycler_view.adapters.PaymentsOfDayAdapter
-import com.example.xpenses.view_model.SpecificPaymentsFragmentViewModel
-import com.example.xpenses.view_model.SpecificPaymentsFragmentViewModelFactory
+import com.example.xpenses.view_model.SpecificDayPaymentsFragmentViewModel
+import com.example.xpenses.view_model.view_models_factories.SpecificPaymentsFragmentViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
@@ -22,16 +21,13 @@ class SpecificDayPaymentsFragment : BasePaymentsFragment() {
 
     private lateinit var dayDateString: String
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
         setHasOptionsMenu(true)
 
         val args = SpecificDayPaymentsFragmentArgs.fromBundle(arguments!!)
+        dayDateString = args.dayDateString
 
         //build adapter
         val adapter = createAdapter()
@@ -39,17 +35,12 @@ class SpecificDayPaymentsFragment : BasePaymentsFragment() {
 
         //create view model
         val viewModelFactory = SpecificPaymentsFragmentViewModelFactory(dataSource, application)
-        val viewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(SpecificPaymentsFragmentViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, viewModelFactory).get(SpecificDayPaymentsFragmentViewModel::class.java)
 
         //fetch the data to be represented on the ui
         viewModel.fetchSpecificDayPayments(args.dayDateString)
-        dayDateString = args.dayDateString
-        Log.d("xxx", args.dayDateString)
         viewModel.specificDayPayments.observe(this, Observer { it?.let { adapter.submitList(it) } })
-        viewModel.specificDayPaymentsInfo.observe(
-            this,
-            Observer { paymentsInfoCarouselAdapter.submitList(it) })
+        viewModel.specificDayPaymentsInfo.observe(this, Observer { paymentsInfoCarouselAdapter.submitList(it) })
 
         return binding.root
     }
@@ -60,9 +51,7 @@ class SpecificDayPaymentsFragment : BasePaymentsFragment() {
             override fun onPaymentItemClick(paymentId: Long) {
                 findNavController()
                     .navigate(
-                        SpecificDayPaymentsFragmentDirections.actionSpecificDayPaymentsFragmentToEditPaymentFragment2(
-                            paymentId
-                        )
+                        SpecificDayPaymentsFragmentDirections.actionSpecificDayPaymentsFragmentToEditPaymentFragment2(paymentId)
                     )
             }
         })
@@ -77,16 +66,11 @@ class SpecificDayPaymentsFragment : BasePaymentsFragment() {
         when (item.itemId) {
             R.id.addPaymentFragment -> {
                 findNavController().navigate(
-                    SpecificDayPaymentsFragmentDirections.actionSpecificDayPaymentsFragmentToAddPaymentFragment2(
-                        dayDateString
-                    )
+                    SpecificDayPaymentsFragmentDirections.actionSpecificDayPaymentsFragmentToAddPaymentFragment2(dayDateString)
                 )
                 return true
             }
         }
-        return NavigationUI.onNavDestinationSelected(
-            item,
-            view!!.findNavController()
-        ) || super.onOptionsItemSelected(item)
+        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController()) || super.onOptionsItemSelected(item)
     }
 }

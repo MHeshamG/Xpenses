@@ -13,7 +13,7 @@ import com.example.xpenses.databinding.FragmentAddEditPaymentBinding
 import com.example.xpenses.model.Payment
 import com.example.xpenses.model.PaymentTypeIconResourceMap
 import com.example.xpenses.view_model.EditPaymentFragmentViewModel
-import com.example.xpenses.view_model.EditPaymentFragmentViewModelFactory
+import com.example.xpenses.view_model.view_models_factories.EditPaymentFragmentViewModelFactory
 import com.xpenses.model.PaymentType
 
 /**
@@ -33,7 +33,12 @@ class EditPaymentFragment : AddEditBaseFragment() {
 
         val args = EditPaymentFragmentArgs.fromBundle(arguments!!)
 
-        val viewModelFactory = EditPaymentFragmentViewModelFactory(dataSource, args.paymentId, application)
+        val viewModelFactory =
+            EditPaymentFragmentViewModelFactory(
+                dataSource,
+                args.paymentId,
+                application
+            )
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(EditPaymentFragmentViewModel::class.java)
         viewModel.thisPayment.observe(this, Observer { it?.let { loadArgsToView(binding, it) } })
 

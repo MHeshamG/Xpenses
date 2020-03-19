@@ -10,10 +10,10 @@ import java.util.*
 interface PaymentDao {
 
     @Insert
-    fun insert(payment: Payment)
+    fun savePayment(payment: Payment)
 
     @Update
-    fun update(payment: Payment)
+    fun updatePayment(payment: Payment)
 
     @Delete
     fun delete(payment: Payment)
@@ -22,12 +22,12 @@ interface PaymentDao {
     fun deleteAllPayments()
 
     @Query("SELECT * FROM payments_table ORDER BY cost DESC")
-    fun getAllPayments(): LiveData<List<Payment>>
+    fun fetchAllPayments(): LiveData<List<Payment>>
 
     @Query("SELECT * FROM payments_table WHERE dateTime >= :from AND dateTime < :to ORDER BY cost DESC")
-    fun getAllPaymentsBetweenDates(from: Date, to: Date): LiveData<List<Payment>>
+    fun fetchAllPaymentsBetweenDates(from: Date, to: Date): LiveData<List<Payment>>
 
     @Query("SELECT * FROM payments_table WHERE paymentId=:paymentId")
-    fun getPaymentById(paymentId:Long): LiveData<Payment>
+    fun fetchPaymentById(paymentId:Long): LiveData<Payment>
 
 }

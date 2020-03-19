@@ -2,7 +2,6 @@ package com.example.xpenses.view.fragments
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,7 +13,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.xpenses.R
 import com.example.xpenses.view.recycler_view.adapters.PaymentsOfDayAdapter
 import com.example.xpenses.view_model.TodayPaymentsFragmentViewModel
-import com.example.xpenses.view_model.TodayPaymentsFragmentViewModelFactory
+import com.example.xpenses.view_model.view_models_factories.TodayPaymentsFragmentViewModelFactory
 
 /**
  * A simple [Fragment] subclass.

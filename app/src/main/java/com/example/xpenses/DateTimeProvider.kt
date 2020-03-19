@@ -1,6 +1,6 @@
 package com.example.xpenses
 
-import android.util.Log
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DateTimeProvider {
@@ -51,6 +51,25 @@ class DateTimeProvider {
             return calendar.time
         }
 
+        fun getDateFromDateString(dayDateString: String/*dayDateString format d mmm yyyy*/): Date {
+            val calendar = Calendar.getInstance()
+            setDateParamsHoursAndLess(calendar)
+            val listOfDateAttr = dayDateString.split(" ")
+            val monthIntValue = getMonthIntValueFromMonthStringValue(listOfDateAttr[1])
+            calendar.set(Calendar.DAY_OF_MONTH,listOfDateAttr[0].toInt())
+            calendar.set(Calendar.MONTH,monthIntValue.get(Calendar.MONTH))
+            calendar.set(Calendar.YEAR,listOfDateAttr[2].toInt())
+            return calendar.time
+        }
+
+        fun getDateOfNextDay(dayDate: Date): Date {
+            val calendar = Calendar.getInstance()
+            calendar.time = dayDate
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+            setDateParamsHoursAndLess(calendar)
+            return calendar.time
+        }
+
         private fun setDateParamsHoursAndLess(calendar: Calendar) {
             calendar.set(Calendar.HOUR_OF_DAY, 0)
             calendar.set(Calendar.MINUTE, 0)
@@ -63,23 +82,11 @@ class DateTimeProvider {
             setDateParamsHoursAndLess(calendar)
         }
 
-        fun getDateFromDateString(dayDateString: String): Date {
-            val calendar = Calendar.getInstance()
-            setDateParamsHoursAndLess(calendar)
-            val listOfDateAttr = dayDateString.split(" ")
-            Log.d("xxx",listOfDateAttr.toString())
-            calendar.set(Calendar.DAY_OF_MONTH,listOfDateAttr[0].toInt())
-            calendar.set(Calendar.MONTH,listOfDateAttr[1].toInt()-1)
-            calendar.set(Calendar.YEAR,listOfDateAttr[2].toInt())
-            return calendar.time
-        }
-
-        fun getDateOfNextDay(dayDate: Date): Date {
-            val calendar = Calendar.getInstance()
-            calendar.time = dayDate
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-            setDateParamsHoursAndLess(calendar)
-            return calendar.time
+        private fun getMonthIntValueFromMonthStringValue(monthString:String): Calendar {
+            val month: Date = SimpleDateFormat("MMM", Locale.ENGLISH).parse(monthString)
+            val cal = Calendar.getInstance()
+            cal.time = month
+            return cal
         }
     }
 }

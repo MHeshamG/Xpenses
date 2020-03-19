@@ -50,8 +50,8 @@ class PaymentEntityReadWriteTest {
     @Throws(Exception::class)
     fun writePaymentAndReadAll() {
         val payment = FakePaymentsDataSource.createPayment()
-        paymentDao.insert(payment)
-        val payments = paymentDao.getAllPayments()
+        paymentDao.savePayment(payment)
+        val payments = paymentDao.fetchAllPayments()
         assertThat(payments.getOrAwaitValue().get(0).cost, equalTo(payment.cost))
     }
 
@@ -59,8 +59,8 @@ class PaymentEntityReadWriteTest {
     @Throws(Exception::class)
     fun writePaymentAndReadWithId() {
         val payment = FakePaymentsDataSource.createPayment()
-        paymentDao.insert(payment)
-        val paymentReturned = paymentDao.getPaymentById(1L)
+        paymentDao.savePayment(payment)
+        val paymentReturned = paymentDao.fetchPaymentById(1L)
         assertThat(paymentReturned.getOrAwaitValue().cost, equalTo(payment.cost))
     }
 
@@ -68,9 +68,9 @@ class PaymentEntityReadWriteTest {
     @Throws(Exception::class)
     fun writePaymentAndDeleteWithId() {
         val payment = FakePaymentsDataSource.createPayment()
-        paymentDao.insert(payment)
+        paymentDao.savePayment(payment)
         paymentDao.delete(payment)
-        val paymentReturned = paymentDao.getPaymentById(0)
+        val paymentReturned = paymentDao.fetchPaymentById(0)
         assertNull(paymentReturned.getOrAwaitValue())
     }
 
@@ -78,9 +78,9 @@ class PaymentEntityReadWriteTest {
     @Throws(Exception::class)
     fun writePaymentAndDeleteAll() {
         val payment = FakePaymentsDataSource.createPayment()
-        paymentDao.insert(payment)
+        paymentDao.savePayment(payment)
         paymentDao.deleteAllPayments()
-        val payments = paymentDao.getAllPayments()
+        val payments = paymentDao.fetchAllPayments()
         assertEquals(payments.getOrAwaitValue().size, 0)
     }
 
@@ -91,9 +91,9 @@ class PaymentEntityReadWriteTest {
         var dateOfTomorrow = getDateFromLocalDate(LocalDate.now().plusDays(1))
         val payment = FakePaymentsDataSource.createPayment()
         val payment2 = FakePaymentsDataSource.createPaymentWithCustomDate(dateOfTomorrow)
-        paymentDao.insert(payment)
-        paymentDao.insert(payment2)
-        val payments = paymentDao.getAllPaymentsBetweenDates(todayDate,dateOfTomorrow)
+        paymentDao.savePayment(payment)
+        paymentDao.savePayment(payment2)
+        val payments = paymentDao.fetchAllPaymentsBetweenDates(todayDate,dateOfTomorrow)
         assertEquals(payments.getOrAwaitValue().size, 1)
     }
 

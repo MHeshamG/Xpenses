@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.xpenses.view.recycler_view.adapters.PaymentsOfDayInMonthAdapter
 import com.example.xpenses.view.recycler_view.adapters.PaymentsOfDayInMonthAdapter.DayPaymentsClickListener
 import com.example.xpenses.view_model.MonthPaymentsFragmentViewModel
-import com.example.xpenses.view_model.MonthPaymentsFragmentViewModelFactory
+import com.example.xpenses.view_model.view_models_factories.MonthPaymentsFragmentViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
@@ -27,6 +27,7 @@ class MonthPaymentsFragment : BasePaymentsFragment() {
         //build the adapter
         val adapter = createPaymentsOfDayInMonthAdapter()
         binding.todayPaymentsRecyclerView.adapter = adapter
+        activity?.actionBar?.title = "Mm"
 
         //create view model
         val viewModelFactory = MonthPaymentsFragmentViewModelFactory(dataSource, application)

@@ -28,7 +28,7 @@ class TodayPaymentsFragmentViewModelTests {
         MockKAnnotations.init(this)
         val paymentDao = mockk<PaymentDao>()
         every {
-            paymentDao.getAllPaymentsBetweenDates(
+            paymentDao.fetchAllPaymentsBetweenDates(
                 getTodayDate(),
                 getTomorrowDate()
             )

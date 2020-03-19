@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.xpenses.DateTimeProvider
 import com.example.xpenses.databinding.FragmentAddEditPaymentBinding
 import com.example.xpenses.view_model.AddPaymentFragmentViewModel
-import com.example.xpenses.view_model.AddPaymentFragmentViewModelFactory
+import com.example.xpenses.view_model.view_models_factories.AddPaymentFragmentViewModelFactory
 import com.example.xpenses.model.Payment
 
 /**

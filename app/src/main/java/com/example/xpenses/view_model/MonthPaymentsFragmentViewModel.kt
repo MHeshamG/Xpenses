@@ -3,14 +3,14 @@ package com.example.xpenses.view_model
 import android.app.Application
 import androidx.lifecycle.MediatorLiveData
 import com.example.xpenses.DateTimeProvider
+import com.example.xpenses.RepositoryInterface
 import com.example.xpenses.formaters.DateFormater
 import com.example.xpenses.model.Payment
-import com.example.xpenses.room.PaymentDao
 import com.example.xpenses.model.PaymentsDerivedInfo
 import java.util.*
 
-class MonthPaymentsFragmentViewModel(paymentDao: PaymentDao, application: Application) :
-    BasePaymentsFragmentViewModel(paymentDao, application) {
+class MonthPaymentsFragmentViewModel(paymentsRepository: RepositoryInterface, application: Application) :
+    BasePaymentsFragmentViewModel(paymentsRepository, application) {
 
     private val thisMonthPayments = getAllPaymentsBetweenDates(
         DateTimeProvider.getThisMonthStartDate(),
@@ -36,7 +36,7 @@ class MonthPaymentsFragmentViewModel(paymentDao: PaymentDao, application: Applic
         ) { payments ->
             run {
                 val paymentsInfo = mutableListOf<PaymentsDerivedInfo>()
-                paymentsInfo.add(createTotalPaymentsCostDataItem(payments, monthDate,DateFormater.getMonthFromMillis(monthDate.time)))
+                paymentsInfo.add(createTotalPaymentsCostDataItem(payments, monthDate,DateFormater.getMonthDateFormatFromMillis(monthDate.time)))
                 paymentsInfo.add(createPaymentsDistributionDataItem(payments))
                 paymentsInfo.add(createPaymentsTotalCostAgainstDaysInMonth(payments))
                 paymentsInfoLiveData.value = paymentsInfo

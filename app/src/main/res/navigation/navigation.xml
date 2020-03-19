@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/todayPaymentsFragment"
         android:name="com.example.xpenses.view.fragments.TodayPaymentsFragment"
-        android:label="TodayPayments"
+        android:label="Today Payments"
         tools:layout="@layout/fragment_base_payments">
         <action
             android:id="@+id/action_todayPaymentsFragment_to_addPaymentFragment"
@@ -61,7 +61,7 @@
     <fragment
         android:id="@+id/specificDayPaymentsFragment"
         android:name="com.example.xpenses.view.fragments.SpecificDayPaymentsFragment"
-        android:label="SpecificDayPaymentsFragment" >
+        android:label="{dayDateString}">
         <action
             android:id="@+id/action_specificDayPaymentsFragment_to_editPaymentFragment2"
             app:destination="@id/editPaymentFragment" />
@@ -75,7 +75,7 @@
     <fragment
         android:id="@+id/monthPaymentsFragment"
         android:name="com.example.xpenses.view.fragments.MonthPaymentsFragment"
-        android:label="MonthPaymentsFragment">
+        >
         <action
             android:id="@+id/action_monthPaymentsFragment2_to_specificDayPaymentsFragment"
             app:destination="@id/specificDayPaymentsFragment" />

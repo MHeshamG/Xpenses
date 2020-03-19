@@ -12,11 +12,11 @@ class DateFormater {
             return SimpleDateFormat("EEE, d MMM yyyy").format(dateTimeMillis).toString()
         }
 
-        fun getDayDateSecondFormatFromMillis(dateTimeMillis:Long):String{
-            return SimpleDateFormat("dd MM yyyy").format(dateTimeMillis).toString()
+        fun getDayDateWithoutDayShortNameFormatFromMillis(dateTimeMillis:Long):String{
+            return SimpleDateFormat("d MMM yyyy").format(dateTimeMillis).toString()
         }
 
-        fun getMonthFromMillis(dateTimeMillis:Long):String{
+        fun getMonthDateFormatFromMillis(dateTimeMillis:Long):String{
             return SimpleDateFormat("MMM yyyy").format(dateTimeMillis).toString()
         }
 
