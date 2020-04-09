@@ -16,7 +16,8 @@ open class BasePaymentsFragmentViewModel(val paymentsRepository: RepositoryInter
     protected fun getAllPaymentsBetweenDates(startDate: Date, endDate:Date) = paymentsRepository.fetchAllPaymentsBetweenDates(startDate,endDate)
 
     protected fun createTotalPaymentsCostDataItem(payments: List<Payment>,date: Date,dateString:String): PaymentsDerivedInfo.PaymentsTotalCostOfDate {
-        val paymentsTotalCost =  PaymentsDerivedInfo.PaymentsTotalCostOfDate(date, payments.sumByDouble { it.cost })
+        val paymentsTotalCost =  PaymentsDerivedInfo.PaymentsTotalCostOfDate(date)
+        paymentsTotalCost.totalCost = payments.sumByDouble { it.cost }
         paymentsTotalCost.dateString = dateString
         return paymentsTotalCost
     }

@@ -10,5 +10,5 @@ val appModule = module {
 
     // single instance of HelloRepository
    // single<DataBas> { HelloRepositoryImpl() }
-    single<RepositoryInterface> { Repository(PaymentsDatabase.getDatabase(androidApplication()).paymentDao) }
+    single<RepositoryInterface> { Repository(PaymentsDatabase.getDatabase(androidApplication()).paymentDao,PaymentsDatabase.getDatabase(androidApplication()).dayBudgetDao) }
 }

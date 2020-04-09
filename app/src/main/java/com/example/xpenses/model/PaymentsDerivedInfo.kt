@@ -8,9 +8,11 @@ sealed class PaymentsDerivedInfo {
 
     abstract val id: Long
 
-    data class PaymentsTotalCostOfDate(var date: Date, var totalCost: Double) : PaymentsDerivedInfo() {
+    data class PaymentsTotalCostOfDate(val date: Date) : PaymentsDerivedInfo() {
         override val id: Long = 1
+        var totalCost: Double =0.0
         lateinit var dateString:String
+        var dayBudget:Double? = null
     }
 
     data class PaymentsCostDistributionAgainstType(val mapOfPaymentTypeAgainstCost: Map<PaymentType, Double>) :

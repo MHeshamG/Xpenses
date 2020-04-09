@@ -10,7 +10,6 @@ class CarouselDiffCallback : DiffUtil.ItemCallback<PaymentsDerivedInfo>() {
         newItem: PaymentsDerivedInfo
     ) = oldItem.id == newItem.id
 
-    @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(
         oldItem: PaymentsDerivedInfo,
         newItem: PaymentsDerivedInfo

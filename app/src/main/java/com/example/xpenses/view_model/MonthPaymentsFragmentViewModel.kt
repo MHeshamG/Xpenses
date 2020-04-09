@@ -64,7 +64,9 @@ class MonthPaymentsFragmentViewModel(paymentsRepository: RepositoryInterface, ap
             if (daysAgainstPaymentsMap[dayDate] != null) {
                 daysAgainstPaymentsMap[dayDate]!!.totalCost += it.cost
             } else {
-                daysAgainstPaymentsMap[dayDate] = PaymentsDerivedInfo.PaymentsTotalCostOfDate(dayDate, it.cost)
+                val paymentTotalCost = PaymentsDerivedInfo.PaymentsTotalCostOfDate(dayDate)
+                paymentTotalCost.totalCost = it.cost
+                daysAgainstPaymentsMap[dayDate] = paymentTotalCost
                 paymentsTotalCostOfDayList.add(daysAgainstPaymentsMap[dayDate]!!)
             }
         }

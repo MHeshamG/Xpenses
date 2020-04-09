@@ -80,4 +80,9 @@
             android:id="@+id/action_monthPaymentsFragment2_to_specificDayPaymentsFragment"
             app:destination="@id/specificDayPaymentsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/currenceisFragment"
+        android:name="com.example.xpenses.view.fragments.CurrenceisFragment"
+        android:label="fragment_currenceis"
+        tools:layout="@layout/fragment_currenceis" />
 </navigation>

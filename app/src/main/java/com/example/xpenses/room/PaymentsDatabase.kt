@@ -5,13 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.xpenses.model.DayBudget
 import com.example.xpenses.model.Payment
 
-@Database(entities = [Payment::class], version = 1)
+@Database(entities = [Payment::class,DayBudget::class], version = 2)
 @TypeConverters(DateConverters::class)
     abstract class PaymentsDatabase : RoomDatabase() {
 
         abstract val paymentDao: PaymentDao
+        abstract val dayBudgetDao: DayBudgetDao
 
         companion object {
 

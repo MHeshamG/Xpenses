@@ -7,6 +7,7 @@ buildscript {
         supportlibVersion = '1.0.0-rc03'
         room_version = '2.0.0'
         coroutine_version = '1.0.0'
+        version_moshi = '1.9.2'
     }
     repositories {
         google()

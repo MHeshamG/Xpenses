@@ -11,13 +11,18 @@ import com.example.xpenses.view.recycler_view.view_holders.PaymentsChartViewHold
 import com.example.xpenses.view.recycler_view.view_holders.TotalPaymentsCostViewHolder
 import java.lang.ClassCastException
 
-class PaymentsInfoCarouselAdapter :
-    ListAdapter<PaymentsDerivedInfo, RecyclerView.ViewHolder>(CarouselDiffCallback()) {
+class PaymentsInfoCarouselAdapter:RecyclerView.Adapter< RecyclerView.ViewHolder>() {
 
 
     private val ITEM_VIEW_TYPE_TOTAL_COST = 0
     private val ITEM_VIEW_TYPE_COST_GRAPH = 1
     private val ITEM_VIEW_TYPE_COST_PER_DAY_GRAPH = 2
+
+    var paymentsDerivedInfolist = listOf<PaymentsDerivedInfo>()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -31,25 +36,29 @@ class PaymentsInfoCarouselAdapter :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is TotalPaymentsCostViewHolder -> {
-                val item = getItem(position) as PaymentsDerivedInfo.PaymentsTotalCostOfDate
+                val item = paymentsDerivedInfolist[position] as PaymentsDerivedInfo.PaymentsTotalCostOfDate
                 holder.bind(item)
             }
             is PaymentsChartViewHolder -> {
-                val item = getItem(position) as PaymentsDerivedInfo.PaymentsCostDistributionAgainstType
+                val item = paymentsDerivedInfolist[position] as PaymentsDerivedInfo.PaymentsCostDistributionAgainstType
                 holder.bind(item)
             }
             is PaymentsBarChartViewHolder -> {
-                val item = getItem(position) as PaymentsDerivedInfo.PaymentsTotalCostDistributionAgainstDaysInMonth
+                val item = paymentsDerivedInfolist[position] as PaymentsDerivedInfo.PaymentsTotalCostDistributionAgainstDaysInMonth
                 holder.bind(item)
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
+        return when (paymentsDerivedInfolist[position]) {
             is PaymentsDerivedInfo.PaymentsTotalCostOfDate -> ITEM_VIEW_TYPE_TOTAL_COST
             is PaymentsDerivedInfo.PaymentsCostDistributionAgainstType -> ITEM_VIEW_TYPE_COST_GRAPH
             is PaymentsDerivedInfo.PaymentsTotalCostDistributionAgainstDaysInMonth -> ITEM_VIEW_TYPE_COST_PER_DAY_GRAPH
         }
+    }
+
+    override fun getItemCount(): Int {
+        return paymentsDerivedInfolist.size
     }
 }

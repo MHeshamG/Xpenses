@@ -22,5 +22,6 @@ class TotalPaymentsCostViewHolder(val binding: TotalExpensesCostLayoutBinding): 
     fun bind(totalCostOfDate: PaymentsDerivedInfo.PaymentsTotalCostOfDate) {
         binding.totalCostValue.text = totalCostOfDate.totalCost.toString()
         binding.dateText.text = totalCostOfDate.dateString
+        binding.dayBudgetTextView.text = totalCostOfDate.dayBudget?.toString()
     }
 }

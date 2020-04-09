@@ -5,6 +5,9 @@
         android:id="@+id/monthPaymentsFragment"
         android:title="@string/this_month" />
     <item
+        android:id="@+id/currenceisFragment"
+        android:title="Currency Rate" />
+    <item
         android:id="@+id/aboutFragment"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/about" />

@@ -40,7 +40,7 @@ class SpecificDayPaymentsFragment : BasePaymentsFragment() {
         //fetch the data to be represented on the ui
         viewModel.fetchSpecificDayPayments(args.dayDateString)
         viewModel.specificDayPayments.observe(this, Observer { it?.let { adapter.submitList(it) } })
-        viewModel.specificDayPaymentsInfo.observe(this, Observer { paymentsInfoCarouselAdapter.submitList(it) })
+        viewModel.specificDayPaymentsInfo.observe(this, Observer { paymentsInfoCarouselAdapter.paymentsDerivedInfolist = it })
 
         return binding.root
     }

@@ -1,11 +1,18 @@
 package com.example.xpenses
 
 import androidx.lifecycle.LiveData
+import com.example.xpenses.model.DayBudget
 import com.example.xpenses.model.Payment
+import com.example.xpenses.room.DayBudgetDao
 import com.example.xpenses.room.PaymentDao
+import kotlinx.coroutines.*
 import java.util.*
 
-class Repository(private val paymentDao:PaymentDao):RepositoryInterface {
+class Repository(private val paymentDao:PaymentDao,private val dayBudgetDao:DayBudgetDao):RepositoryInterface {
+
+    private val repositoryJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main+repositoryJob)
+
     override fun savePayment(payment: Payment) {
         paymentDao.savePayment(payment)
     }
@@ -32,5 +39,33 @@ class Repository(private val paymentDao:PaymentDao):RepositoryInterface {
 
     override fun fetchPaymentById(paymentId: Long): LiveData<Payment> {
         return paymentDao.fetchPaymentById(paymentId)
+    }
+
+    override fun getDayBudget(dayDate: Date): LiveData<DayBudget> {
+        return  dayBudgetDao.fetchDayBudgetByDate(dayDate)
+    }
+
+    override fun addDayBudget(dayBudget: DayBudget){
+        uiScope.launch {
+            _addDayBudget(dayBudget)
+        }
+    }
+
+    private suspend fun _addDayBudget(dayBudget: DayBudget) {
+        withContext(Dispatchers.IO){
+            dayBudgetDao.addDayBudget(dayBudget)
+        }
+    }
+
+    override fun updateDayBudget(dayBudget: DayBudget){
+        uiScope.launch {
+            _updateDayBudget(dayBudget)
+        }
+    }
+
+    private suspend fun _updateDayBudget(dayBudget: DayBudget) {
+        withContext(Dispatchers.IO){
+            dayBudgetDao.updateDayBudget(dayBudget)
+        }
     }
 }

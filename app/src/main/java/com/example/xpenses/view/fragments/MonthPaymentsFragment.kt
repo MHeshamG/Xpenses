@@ -37,7 +37,7 @@ class MonthPaymentsFragment : BasePaymentsFragment() {
 
         //fetch the data to be represented on the ui
         viewModel.fetchDaysPayments().observe(this, Observer { it?.let { adapter.submitList(it) } })
-        viewModel.fetchPaymentsDerivedInfo().observe(this, Observer { paymentsInfoCarouselAdapter.submitList(it) })
+        viewModel.fetchPaymentsDerivedInfo().observe(this, Observer { paymentsInfoCarouselAdapter.paymentsDerivedInfolist = it })
 
         return binding.root
     }

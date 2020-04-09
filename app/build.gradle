@@ -37,6 +37,11 @@ android {
         }
     }
 
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
+    }
+
 }
 
 dependencies {
@@ -77,8 +82,17 @@ dependencies {
     // Koin for Android
     implementation "org.koin:koin-android:$koin_version"
 
-    // or Koin for view model features
+    // Koin for view model features
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
+    // chart drawer
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation "com.squareup.retrofit2:converter-moshi:2.8.1"
+
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+
 }
