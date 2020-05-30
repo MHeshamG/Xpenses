@@ -1,4 +1,4 @@
-package com.example.xpenses.formaters
+package com.example.xpenses.datetime
 
 import java.text.SimpleDateFormat
 

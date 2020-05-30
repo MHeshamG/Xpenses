@@ -10,13 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.R
-import com.example.xpenses.Repository
-import com.example.xpenses.RepositoryInterface
+import com.example.xpenses.repository.RepositoryInterface
 import com.example.xpenses.databinding.FragmentBasePaymentsBinding
 import com.example.xpenses.view.recycler_view.adapters.PaymentsInfoCarouselAdapter
 import com.example.xpenses.view.recycler_view.decorations.DotIndicatorDecoration
-import com.example.xpenses.room.PaymentDao
-import com.example.xpenses.room.PaymentsDatabase
 import org.koin.android.ext.android.inject
 
 abstract class BasePaymentsFragment : Fragment() {

@@ -2,9 +2,8 @@ package com.example.xpenses.view_model
 
 import android.app.Application
 import androidx.lifecycle.MediatorLiveData
-import com.example.xpenses.DateTimeProvider
-import com.example.xpenses.RepositoryInterface
-import com.example.xpenses.formaters.DateFormater
+import com.example.xpenses.datetime.DateTimeProvider
+import com.example.xpenses.repository.RepositoryInterface
 import com.example.xpenses.model.Payment
 import com.example.xpenses.model.PaymentsDerivedInfo
 import java.util.*
@@ -19,8 +18,8 @@ class MonthPaymentsFragmentViewModel(paymentsRepository: RepositoryInterface, ap
 
     private val monthDate = DateTimeProvider.getThisMonthDate()
 
-    fun fetchDaysPayments(): MediatorLiveData<List<PaymentsDerivedInfo.PaymentsTotalCostOfDate>> {
-        val daysPayments = MediatorLiveData<List<PaymentsDerivedInfo.PaymentsTotalCostOfDate>>()
+    fun fetchDaysPayments(): MediatorLiveData<List<PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate>> {
+        val daysPayments = MediatorLiveData<List<PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate>>()
         daysPayments.addSource(thisMonthPayments) { payments ->
             run {
                 daysPayments.value = createPaymentsOfDaysListFromIndividualPaymentsOfDayList(payments)
@@ -36,7 +35,7 @@ class MonthPaymentsFragmentViewModel(paymentsRepository: RepositoryInterface, ap
         ) { payments ->
             run {
                 val paymentsInfo = mutableListOf<PaymentsDerivedInfo>()
-                paymentsInfo.add(createTotalPaymentsCostDataItem(payments, monthDate,DateFormater.getMonthDateFormatFromMillis(monthDate.time)))
+                paymentsInfo.add(createTotalPaymentsCostDataItem(payments, monthDate))
                 paymentsInfo.add(createPaymentsDistributionDataItem(payments))
                 paymentsInfo.add(createPaymentsTotalCostAgainstDaysInMonth(payments))
                 paymentsInfoLiveData.value = paymentsInfo
@@ -56,15 +55,15 @@ class MonthPaymentsFragmentViewModel(paymentsRepository: RepositoryInterface, ap
     }
 
     private fun createPaymentsOfDaysListFromIndividualPaymentsOfDayList(payments: List<Payment>)
-            : List<PaymentsDerivedInfo.PaymentsTotalCostOfDate> {
-        val daysAgainstPaymentsMap = mutableMapOf<Date, PaymentsDerivedInfo.PaymentsTotalCostOfDate>()
-        val paymentsTotalCostOfDayList = mutableListOf<PaymentsDerivedInfo.PaymentsTotalCostOfDate>()
+            : List<PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate> {
+        val daysAgainstPaymentsMap = mutableMapOf<Date, PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate>()
+        val paymentsTotalCostOfDayList = mutableListOf<PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate>()
         payments.forEach {
             val dayDate = DateTimeProvider.getDateFromDateTime(it.dateTime)
             if (daysAgainstPaymentsMap[dayDate] != null) {
                 daysAgainstPaymentsMap[dayDate]!!.totalCost += it.cost
             } else {
-                val paymentTotalCost = PaymentsDerivedInfo.PaymentsTotalCostOfDate(dayDate)
+                val paymentTotalCost = PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate(dayDate)
                 paymentTotalCost.totalCost = it.cost
                 daysAgainstPaymentsMap[dayDate] = paymentTotalCost
                 paymentsTotalCostOfDayList.add(daysAgainstPaymentsMap[dayDate]!!)

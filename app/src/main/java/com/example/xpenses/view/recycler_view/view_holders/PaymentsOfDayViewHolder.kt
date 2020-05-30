@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.databinding.PaymentsOfDayInMonthLayoutBinding
-import com.example.xpenses.formaters.DateFormater
+import com.example.xpenses.datetime.DateFormater
 import com.example.xpenses.model.PaymentsDerivedInfo
 import com.example.xpenses.view.recycler_view.adapters.PaymentsOfDayInMonthAdapter
 
@@ -18,7 +18,7 @@ class PaymentsOfDayViewHolder private constructor(val binding: PaymentsOfDayInMo
         }
     }
 
-    fun bind(paymentsTotalCostOfDateOfDay: PaymentsDerivedInfo.PaymentsTotalCostOfDate, paymentItemClickListener: PaymentsOfDayInMonthAdapter.DayPaymentsClickListener) {
+    fun bind(paymentsTotalCostOfDateOfDay: PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate, paymentItemClickListener: PaymentsOfDayInMonthAdapter.DayPaymentsClickListener) {
         binding.root.setOnClickListener { paymentItemClickListener.onDayPaymentsClick(DateFormater.getDayDateWithoutDayShortNameFormatFromMillis(paymentsTotalCostOfDateOfDay.date.time))}
         binding.dateOfPaymentsTextView.text = DateFormater.getFullDateTimeFromMillis(paymentsTotalCostOfDateOfDay.date.time)
         binding.totalCostOfPaymentsOfDay.text = paymentsTotalCostOfDateOfDay.totalCost.toString()+"$"

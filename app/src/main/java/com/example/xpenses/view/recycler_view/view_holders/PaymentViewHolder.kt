@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.databinding.PaymentLayoutBinding
-import com.example.xpenses.formaters.DateFormater
+import com.example.xpenses.datetime.DateFormater
 import com.example.xpenses.model.PaymentTypeIconResourceMap
 import com.example.xpenses.view.recycler_view.adapters.PaymentsOfDayAdapter
 import com.example.xpenses.model.Payment

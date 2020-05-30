@@ -3,13 +3,10 @@ package com.example.xpenses.view_model
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.example.xpenses.DateTimeProvider
-import com.example.xpenses.Repository
-import com.example.xpenses.RepositoryInterface
-import com.example.xpenses.formaters.DateFormater
+import com.example.xpenses.datetime.DateTimeProvider
+import com.example.xpenses.repository.RepositoryInterface
 import com.example.xpenses.model.Payment
 import com.example.xpenses.model.PaymentsDerivedInfo
-import com.example.xpenses.room.PaymentDao
 import java.util.*
 
 class SpecificDayPaymentsFragmentViewModel (paymentsRepository: RepositoryInterface, application: Application) :
@@ -33,7 +30,7 @@ class SpecificDayPaymentsFragmentViewModel (paymentsRepository: RepositoryInterf
         paymentsInfoLiveData.addSource(src) { payments ->
             run {
                 val paymentsInfo = mutableListOf<PaymentsDerivedInfo>()
-                paymentsInfo.add(createTotalPaymentsCostDataItem(payments,dayDate, DateFormater.getDayDateFromMillis(dayDate.time)))
+                paymentsInfo.add(createTotalPaymentsCostDataItem(payments,dayDate))
                 paymentsInfo.add(createPaymentsDistributionDataItem(payments))
                 paymentsInfoLiveData.value = paymentsInfo
             }

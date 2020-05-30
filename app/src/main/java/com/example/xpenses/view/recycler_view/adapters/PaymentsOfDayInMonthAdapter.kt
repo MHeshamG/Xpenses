@@ -7,7 +7,7 @@ import com.example.xpenses.view.recycler_view.diff_callbacks.PaymentsTotalCostOf
 import com.example.xpenses.view.recycler_view.view_holders.PaymentsOfDayViewHolder
 
 class PaymentsOfDayInMonthAdapter(private val paymentItemClickListener: DayPaymentsClickListener):
-    ListAdapter<PaymentsDerivedInfo.PaymentsTotalCostOfDate, PaymentsOfDayViewHolder>(PaymentsTotalCostOfDayDiffCallback()) {
+    ListAdapter<PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate, PaymentsOfDayViewHolder>(PaymentsTotalCostOfDayDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): PaymentsOfDayViewHolder {
         return PaymentsOfDayViewHolder.createViewHolder(parent)

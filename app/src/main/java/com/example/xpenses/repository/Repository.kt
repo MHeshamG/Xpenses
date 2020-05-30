@@ -1,14 +1,16 @@
-package com.example.xpenses
+package com.example.xpenses.repository
 
 import androidx.lifecycle.LiveData
 import com.example.xpenses.model.DayBudget
 import com.example.xpenses.model.Payment
+import com.example.xpenses.repository.RepositoryInterface
 import com.example.xpenses.room.DayBudgetDao
 import com.example.xpenses.room.PaymentDao
 import kotlinx.coroutines.*
 import java.util.*
 
-class Repository(private val paymentDao:PaymentDao,private val dayBudgetDao:DayBudgetDao):RepositoryInterface {
+class Repository(private val paymentDao:PaymentDao,private val dayBudgetDao:DayBudgetDao):
+    RepositoryInterface {
 
     private val repositoryJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main+repositoryJob)

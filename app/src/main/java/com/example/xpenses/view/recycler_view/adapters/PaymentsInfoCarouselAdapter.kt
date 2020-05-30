@@ -1,11 +1,8 @@
 package com.example.xpenses.view.recycler_view.adapters
 
-import android.util.Log
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xpenses.model.PaymentsDerivedInfo
-import com.example.xpenses.view.recycler_view.diff_callbacks.CarouselDiffCallback
 import com.example.xpenses.view.recycler_view.view_holders.PaymentsBarChartViewHolder
 import com.example.xpenses.view.recycler_view.view_holders.PaymentsChartViewHolder
 import com.example.xpenses.view.recycler_view.view_holders.TotalPaymentsCostViewHolder
@@ -36,7 +33,7 @@ class PaymentsInfoCarouselAdapter:RecyclerView.Adapter< RecyclerView.ViewHolder>
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is TotalPaymentsCostViewHolder -> {
-                val item = paymentsDerivedInfolist[position] as PaymentsDerivedInfo.PaymentsTotalCostOfDate
+                val item = paymentsDerivedInfolist[position] as PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate
                 holder.bind(item)
             }
             is PaymentsChartViewHolder -> {
@@ -52,7 +49,7 @@ class PaymentsInfoCarouselAdapter:RecyclerView.Adapter< RecyclerView.ViewHolder>
 
     override fun getItemViewType(position: Int): Int {
         return when (paymentsDerivedInfolist[position]) {
-            is PaymentsDerivedInfo.PaymentsTotalCostOfDate -> ITEM_VIEW_TYPE_TOTAL_COST
+            is PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate -> ITEM_VIEW_TYPE_TOTAL_COST
             is PaymentsDerivedInfo.PaymentsCostDistributionAgainstType -> ITEM_VIEW_TYPE_COST_GRAPH
             is PaymentsDerivedInfo.PaymentsTotalCostDistributionAgainstDaysInMonth -> ITEM_VIEW_TYPE_COST_PER_DAY_GRAPH
         }

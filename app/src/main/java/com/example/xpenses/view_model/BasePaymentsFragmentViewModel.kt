@@ -2,10 +2,8 @@ package com.example.xpenses.view_model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.example.xpenses.Repository
-import com.example.xpenses.RepositoryInterface
+import com.example.xpenses.repository.RepositoryInterface
 import com.example.xpenses.model.Payment
-import com.example.xpenses.room.PaymentDao
 import com.example.xpenses.model.PaymentsDerivedInfo
 import com.xpenses.model.PaymentType
 import java.util.*
@@ -15,10 +13,9 @@ open class BasePaymentsFragmentViewModel(val paymentsRepository: RepositoryInter
 
     protected fun getAllPaymentsBetweenDates(startDate: Date, endDate:Date) = paymentsRepository.fetchAllPaymentsBetweenDates(startDate,endDate)
 
-    protected fun createTotalPaymentsCostDataItem(payments: List<Payment>,date: Date,dateString:String): PaymentsDerivedInfo.PaymentsTotalCostOfDate {
-        val paymentsTotalCost =  PaymentsDerivedInfo.PaymentsTotalCostOfDate(date)
+    protected fun createTotalPaymentsCostDataItem(payments: List<Payment>,date: Date): PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate {
+        val paymentsTotalCost =  PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate(date)
         paymentsTotalCost.totalCost = payments.sumByDouble { it.cost }
-        paymentsTotalCost.dateString = dateString
         return paymentsTotalCost
     }
 

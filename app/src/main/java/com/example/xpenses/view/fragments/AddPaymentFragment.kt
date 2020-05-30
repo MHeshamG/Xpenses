@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.xpenses.DateTimeProvider
+import com.example.xpenses.datetime.DateTimeProvider
 import com.example.xpenses.databinding.FragmentAddEditPaymentBinding
 import com.example.xpenses.view_model.AddPaymentFragmentViewModel
 import com.example.xpenses.view_model.view_models_factories.AddPaymentFragmentViewModelFactory

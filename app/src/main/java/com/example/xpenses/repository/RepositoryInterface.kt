@@ -1,4 +1,4 @@
-package com.example.xpenses
+package com.example.xpenses.repository
 
 import androidx.lifecycle.LiveData
 import androidx.room.Delete

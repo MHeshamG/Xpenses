@@ -1,4 +1,4 @@
-package com.example.xpenses
+package com.example.xpenses.repository
 
 import com.example.xpenses.model.CurrencyResponse
 import com.example.xpenses.network.CurrencyApi

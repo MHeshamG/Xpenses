@@ -1,13 +1,11 @@
 package com.example.xpenses.view_model
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.example.xpenses.DateTimeProvider.Companion.getTodayDate
-import com.example.xpenses.DateTimeProvider.Companion.getTomorrowDate
-import com.example.xpenses.RepositoryInterface
-import com.example.xpenses.formaters.DateFormater
+import com.example.xpenses.datetime.DateTimeProvider.Companion.getTodayDate
+import com.example.xpenses.datetime.DateTimeProvider.Companion.getTomorrowDate
+import com.example.xpenses.repository.RepositoryInterface
 import com.example.xpenses.model.DayBudget
 import com.example.xpenses.model.Payment
 import com.example.xpenses.model.PaymentsDerivedInfo
@@ -15,24 +13,18 @@ import com.example.xpenses.model.PaymentsDerivedInfo
 class TodayPaymentsFragmentViewModel(paymentsRepository: RepositoryInterface, application: Application) :
     BasePaymentsFragmentViewModel(paymentsRepository, application) {
 
-    private var arePaymentsRetrieved:Boolean = false
-    private var isBudgetRetrieved:Boolean = false
-
     private val dayDate = getTodayDate()
 
     val todayPayments = paymentsRepository.fetchAllPaymentsBetweenDates(dayDate, getTomorrowDate())
     val todayBudget = paymentsRepository.getDayBudget(dayDate)
     val todayPaymentsInfo = getPaymentsInfo(todayPayments,todayBudget)
 
-    var todayTotalPaymentsCost:PaymentsDerivedInfo.PaymentsTotalCostOfDate = PaymentsDerivedInfo.PaymentsTotalCostOfDate(dayDate)
-
     fun addTodayBudget(budget:Double){
         if(todayBudget.value == null)
             paymentsRepository.addDayBudget(DayBudget(budget,dayDate))
         else {
-            val dayBudget = todayBudget.value
-            dayBudget?.budget = budget
-            paymentsRepository.updateDayBudget(dayBudget!!)
+            todayBudget.value?.budget = budget
+            paymentsRepository.updateDayBudget(todayBudget.value!!)
         }
     }
 
@@ -40,27 +32,25 @@ class TodayPaymentsFragmentViewModel(paymentsRepository: RepositoryInterface, ap
         val paymentsInfoLiveData = MediatorLiveData<List<PaymentsDerivedInfo>>()
         val paymentsInfo = mutableListOf<PaymentsDerivedInfo>()
 
-        var todayPaymentsDistribution:PaymentsDerivedInfo.PaymentsCostDistributionAgainstType? = null
+        lateinit var todayTotalPaymentsCostAndBudget:PaymentsDerivedInfo.PaymentsTotalCostAndBudgetOfDate
+        lateinit var todayPaymentsDistribution:PaymentsDerivedInfo.PaymentsCostDistributionAgainstType
+
         paymentsInfoLiveData.addSource(src) { payments ->
             run {
-                todayTotalPaymentsCost.totalCost = payments.sumByDouble { it.cost }
-                todayTotalPaymentsCost.dateString = DateFormater.getDayDateFromMillis(dayDate.time)
-                //createTotalPaymentsCostDataItem(payments,dayDate, DateFormater.getDayDateFromMillis(dayDate.time))
+                todayTotalPaymentsCostAndBudget = createTotalPaymentsCostDataItem(payments,dayDate)
                 todayPaymentsDistribution = createPaymentsDistributionDataItem(payments)
-                paymentsInfo.add(todayTotalPaymentsCost)
-                paymentsInfo.add(todayPaymentsDistribution!!)
-                arePaymentsRetrieved = true
+
+                paymentsInfo.add(todayTotalPaymentsCostAndBudget)
+                paymentsInfo.add(todayPaymentsDistribution)
+
                 paymentsInfoLiveData.value = paymentsInfo
             }
         }
         paymentsInfoLiveData.addSource(src2){
-            todayTotalPaymentsCost.dayBudget = it?.budget
-            isBudgetRetrieved = true
+            todayTotalPaymentsCostAndBudget?.dayBudget = it?.budget
+
             paymentsInfoLiveData.value = paymentsInfo
         }
-       // if(arePaymentsRetrieved && isBudgetRetrieved)
-
-        Log.d("xxx","$arePaymentsRetrieved  $isBudgetRetrieved")
         return paymentsInfoLiveData
     }
 }

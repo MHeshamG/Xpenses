@@ -1,12 +1,10 @@
 package com.example.xpenses.view_model
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.xpenses.CurrencyRepository
+import com.example.xpenses.repository.CurrencyRepository
 import com.example.xpenses.model.CurrencyRate
-import com.example.xpenses.model.CurrencyResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
