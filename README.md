@@ -1,2 +1,2 @@
 # Xpenses
-Xpenses is ana android app that helps you track your spendings
+Xpenses is an android app that helps you track your spendings.
